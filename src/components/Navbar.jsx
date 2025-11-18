@@ -1,7 +1,10 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import logo from "./../assets/logo.png";
 import { FiSun, FiMenu, FiX } from "react-icons/fi";
 import { BsMoonStarsFill } from "react-icons/bs";
+import { Link } from "react-router";
+import { AuthContext } from "../provider/AuthProvider";
+import toast from "react-hot-toast";
 
 const links = [
   { id: 1, name: "Home", link: "/" },
@@ -13,6 +16,8 @@ const Navbar = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [open, setOpen] = useState(false);
 
+  const { user, logOut } = useContext(AuthContext);
+
   useEffect(() => {
     const html = document.querySelector("html");
     html.setAttribute("data-theme", theme);
@@ -21,6 +26,12 @@ const Navbar = () => {
 
   const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
   const toggleMenu = () => setOpen(!open);
+
+  const handleLogout = () => {
+    logOut()
+      .then(() => toast.success("User logged out"))
+      .catch((err) => toast.error(err.message));
+  };
 
   return (
     <header className="bg-background text-text shadow-sm">
@@ -43,39 +54,41 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* Right Buttons (desktop only) */}
+        {/* Right Buttons (desktop) */}
         <div className="hidden md:flex justify-between items-center gap-4">
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full bg-secondary text-text border-2 border-primary"
           >
-            {theme === "light" ? (
-              <BsMoonStarsFill size={20} />
-            ) : (
-              <FiSun size={20} />
-            )}
+            {theme === "light" ? <BsMoonStarsFill size={20} /> : <FiSun size={20} />}
           </button>
 
-          <button className="bg-secondary px-3 py-2 rounded-xl border-2 border-primary text-text font-semibold">
-            Login
-          </button>
+          {user ? (
+            <button
+              onClick={handleLogout}
+              className="bg-secondary px-3 py-2 rounded-xl border-2 border-primary text-text font-semibold"
+            >
+              Logout
+            </button>
+          ) : (
+            <Link
+              to="/auth/login"
+              className="bg-secondary px-3 py-2 rounded-xl border-2 border-primary text-text font-semibold"
+            >
+              Login
+            </Link>
+          )}
         </div>
 
         {/* Right Buttons (mobile) */}
         <div className="md:hidden flex items-center gap-3">
-          {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full bg-secondary text-text border-2 border-primary"
           >
-            {theme === "light" ? (
-              <BsMoonStarsFill size={20} />
-            ) : (
-              <FiSun size={20} />
-            )}
+            {theme === "light" ? <BsMoonStarsFill size={20} /> : <FiSun size={20} />}
           </button>
 
-          {/* Hamburger Button */}
           <button
             onClick={toggleMenu}
             className="p-2 rounded-lg bg-secondary border-2 border-primary"
@@ -99,9 +112,21 @@ const Navbar = () => {
           ))}
         </ul>
 
-        <button className="mt-6 w-full bg-secondary px-3 py-2 rounded-xl border-2 border-primary text-text font-semibold">
-          Login
-        </button>
+        {user ? (
+          <button
+            onClick={handleLogout}
+            className="mt-6 w-full bg-secondary px-3 py-2 rounded-xl border-2 border-primary text-text font-semibold"
+          >
+            Logout
+          </button>
+        ) : (
+          <Link
+            to="/auth/login"
+            className="mt-6 w-full bg-secondary px-3 py-2 rounded-xl border-2 border-primary text-text font-semibold"
+          >
+            Login
+          </Link>
+        )}
       </div>
     </header>
   );
