@@ -1,12 +1,12 @@
-import { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { FiSun, FiMenu, FiX } from "react-icons/fi";
 import { BsMoonStarsFill } from "react-icons/bs";
-import { FaUserCircle } from "react-icons/fa";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
 import avatarFallback from "../assets/avatar.png";
 import logo from "../assets/logo.png";
+import Loading from "./Loading";
 
 const links = [
   { id: 1, name: "Home", link: "/" },
@@ -21,10 +21,9 @@ const Navbar = () => {
 
   const { user, logOut, loading } = useContext(AuthContext);
 
-  // Sync theme to HTML
+  // Theme management
   useEffect(() => {
-    const html = document.querySelector("html");
-    html.setAttribute("data-theme", theme);
+    document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
 
@@ -36,41 +35,47 @@ const Navbar = () => {
     logOut()
       .then(() => toast.success("Logged out successfully"))
       .catch((err) => toast.error(err.message));
+    setProfileMenuOpen(false);
+    setMobileMenuOpen(false);
   };
 
   return (
-    <header className="bg-background text-text shadow-sm w-full fixed top-0 left-0 z-50">
-      {/* Top Bar */}
+    <header className="bg-background text-text shadow-sm fixed top-0 left-0 w-full z-50">
       <div className="max-w-[1296px] mx-auto flex justify-between items-center p-3">
         {/* Logo */}
-        <div className="flex items-center gap-3">
-          <Link to="/" className="flex items-center gap-2">
-            <img src={logo} alt="Logo" className="h-14" />
-            <div className="flex flex-col text-xl font-bold">
-              <span className="text-primary">Change</span>
-              <span className="text-secondary">Makers</span>
-            </div>
-          </Link>
-        </div>
+        <Link to="/" className="flex items-center gap-2">
+          <img src={logo} alt="Logo" className="h-14" />
+          <div className="flex flex-col text-xl font-bold">
+            <span className="text-primary">Change</span>
+            <span className="text-secondary">Makers</span>
+          </div>
+        </Link>
 
         {/* Desktop Menu */}
         <ul className="hidden md:flex gap-6 list-none">
           {links.map((item) => (
-            <li
-              key={item.id}
-              className="cursor-pointer hover:text-primary transition"
-            >
-              <NavLink to={item.link}>{item.name}</NavLink>
+            <li key={item.id} className="cursor-pointer font-medium">
+              <NavLink
+                to={item.link}
+                className={({ isActive }) =>
+                  `hover:text-primary transition ${
+                    isActive ? "text-primary font-semibold" : ""
+                  }`
+                }
+              >
+                {item.name}
+              </NavLink>
             </li>
           ))}
         </ul>
 
-        {/* Right Controls */}
+        {/* Desktop Right Controls */}
         <div className="hidden md:flex items-center gap-4">
           {/* Theme Toggle */}
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full bg-secondary border-2 border-primary text-text"
+            aria-label="Toggle theme"
           >
             {theme === "light" ? (
               <BsMoonStarsFill size={20} />
@@ -82,30 +87,40 @@ const Navbar = () => {
           {/* Profile / Login */}
           {user ? (
             <div className="relative">
-              <img
-                src={user.photoURL || avatarFallback}
-                alt={user.displayName || "User"}
-                onError={(e) => (e.currentTarget.src = avatarFallback)}
-                className="w-10 h-10 rounded-full cursor-pointer object-cover border-2 border-primary"
-                onClick={toggleProfileMenu}
-              />
-              {profileMenuOpen && (
+              {!loading ? (
+                <img
+                  src={user.photoURL || avatarFallback}
+                  alt={user.displayName || "User"}
+                  onError={(e) => (e.currentTarget.src = avatarFallback)}
+                  className="w-10 h-10 rounded-full cursor-pointer object-cover border-2 border-primary"
+                  onClick={toggleProfileMenu}
+                />
+              ) : (
+                <div className="w-10 h-10">
+                  <Loading size={40} />
+                </div>
+              )}
+
+              {profileMenuOpen && !loading && (
                 <div className="absolute right-0 mt-2 w-48 bg-secondary rounded-lg shadow-lg py-2 flex flex-col gap-2 z-50">
                   <Link
                     to="/profile/create-event"
                     className="px-4 py-2 hover:bg-primary/20 rounded transition"
+                    onClick={() => setProfileMenuOpen(false)}
                   >
                     Create Event
                   </Link>
                   <Link
                     to="/profile/manage-events"
                     className="px-4 py-2 hover:bg-primary/20 rounded transition"
+                    onClick={() => setProfileMenuOpen(false)}
                   >
                     Manage Events
                   </Link>
                   <Link
                     to="/profile/joined-events"
                     className="px-4 py-2 hover:bg-primary/20 rounded transition"
+                    onClick={() => setProfileMenuOpen(false)}
                   >
                     Joined Events
                   </Link>
@@ -133,6 +148,7 @@ const Navbar = () => {
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full bg-secondary border-2 border-primary text-text"
+            aria-label="Toggle theme"
           >
             {theme === "light" ? (
               <BsMoonStarsFill size={20} />
@@ -141,32 +157,42 @@ const Navbar = () => {
             )}
           </button>
 
-          {user ? (
+          {user && (
             <div className="relative">
-              <img
-                src={user.photoURL || avatarFallback}
-                alt={user.displayName || "User"}
-                onError={(e) => (e.currentTarget.src = avatarFallback)}
-                className="w-10 h-10 rounded-full cursor-pointer object-cover border-2 border-primary"
-                onClick={toggleProfileMenu}
-              />
-              {profileMenuOpen && (
+              {!loading ? (
+                <img
+                  src={user.photoURL || avatarFallback}
+                  alt={user.displayName || "User"}
+                  onError={(e) => (e.currentTarget.src = avatarFallback)}
+                  className="w-10 h-10 rounded-full cursor-pointer object-cover border-2 border-primary"
+                  onClick={toggleProfileMenu}
+                />
+              ) : (
+                <div className="w-10 h-10">
+                  <Loading size={40} />
+                </div>
+              )}
+
+              {profileMenuOpen && !loading && (
                 <div className="absolute right-0 mt-2 w-48 bg-secondary rounded-lg shadow-lg py-2 flex flex-col gap-2 z-50">
                   <Link
                     to="/profile/create-event"
                     className="px-4 py-2 hover:bg-primary/20 rounded transition"
+                    onClick={() => setProfileMenuOpen(false)}
                   >
                     Create Event
                   </Link>
                   <Link
                     to="/profile/manage-events"
                     className="px-4 py-2 hover:bg-primary/20 rounded transition"
+                    onClick={() => setProfileMenuOpen(false)}
                   >
                     Manage Events
                   </Link>
                   <Link
                     to="/profile/joined-events"
                     className="px-4 py-2 hover:bg-primary/20 rounded transition"
+                    onClick={() => setProfileMenuOpen(false)}
                   >
                     Joined Events
                   </Link>
@@ -179,11 +205,12 @@ const Navbar = () => {
                 </div>
               )}
             </div>
-          ) : null}
+          )}
 
           <button
             onClick={toggleMobileMenu}
             className="p-2 rounded-lg bg-secondary border-2 border-primary"
+            aria-label="Toggle mobile menu"
           >
             {mobileMenuOpen ? <FiX size={22} /> : <FiMenu size={22} />}
           </button>
@@ -197,7 +224,11 @@ const Navbar = () => {
             <NavLink
               key={item.id}
               to={item.link}
-              className="px-2 py-2 rounded hover:bg-primary/20 transition"
+              className={({ isActive }) =>
+                `px-2 py-2 rounded transition hover:bg-primary/20 ${
+                  isActive ? "text-primary font-semibold" : ""
+                }`
+              }
               onClick={() => setMobileMenuOpen(false)}
             >
               {item.name}
