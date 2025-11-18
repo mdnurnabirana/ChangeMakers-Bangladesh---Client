@@ -55,11 +55,32 @@ const Register = () => {
     createUser(email, password)
       .then((result) => {
         // Update profile
-        updateUserProfile({
-          displayName: name,
-          photoURL: photo,
-        })
-          .then(() => {
+        updateUserProfile({ displayName: name, photoURL: photo })
+          .then(async () => {
+            // Save user in backend
+            try {
+              const res = await fetch("http://localhost:3000/user", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                  firebaseUid: result.user.uid,
+                  name: name,
+                  email: email,
+                  profilePhoto: photo,
+                  role: "user",
+                  createdAt: new Date().toISOString(),
+                }),
+              });
+              const data = await res.json();
+              if (!data.success) {
+                toast.error("Failed to save user in backend.");
+              }
+            } catch (err) {
+              console.error(err);
+              toast.error("Backend server error.");
+            }
+
+            // Logout and redirect
             logOut().then(() => {
               toast.success("Registration successful! Please login.");
               navigate("/auth/login");
@@ -86,7 +107,6 @@ const Register = () => {
       <title>ChangeMakers Bangladesh - Register</title>
 
       <div className="max-w-[1296px] mx-auto min-h-screen flex flex-col justify-center items-center px-4">
-
         {/* Logo */}
         <div className="flex flex-col items-center mb-10">
           <img src={logo} className="h-20 mb-3" alt="Logo" />
@@ -157,9 +177,7 @@ const Register = () => {
             Register
           </button>
 
-          {error && (
-            <p className="text-center text-red-500 text-sm">{error}</p>
-          )}
+          {error && <p className="text-center text-red-500 text-sm">{error}</p>}
 
           {/* Login Link */}
           <p className="text-center text-text text-sm">

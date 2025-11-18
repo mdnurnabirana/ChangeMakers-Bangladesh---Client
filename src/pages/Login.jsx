@@ -13,7 +13,6 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-
     const form = e.target;
     const email = form.email.value;
     const password = form.password.value;
@@ -43,19 +42,40 @@ const Login = () => {
       });
   };
 
-  const handleGoogleSignin = () => {
-    signInWithGoogle()
-      .then((result) => {
-        toast.success(`Welcome back, ${result.user.displayName || "User"}!`);
-        navigate(location.state?.from || "/");
-      })
-      .catch((error) => {
-        const msg =
-          error.code === "auth/popup-closed-by-user"
-            ? "Google sign-in was cancelled."
-            : "Failed to sign in with Google. Try again.";
-        toast.error(msg);
+  const handleGoogleSignin = async () => {
+    try {
+      const result = await signInWithGoogle();
+      const user = result.user;
+
+      // Save user info in backend
+      const res = await fetch("http://localhost:3000/user", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firebaseUid: user.uid,
+          name: user.displayName,
+          email: user.email,
+          profilePhoto: user.photoURL,
+          role: "user",
+          createdAt: new Date().toISOString(),
+        }),
       });
+
+      const data = await res.json();
+      if (data.success) {
+        toast.success(`Welcome back, ${user.displayName || "User"}!`);
+      } else {
+        toast.error("Failed to save user to backend.");
+      }
+
+      navigate(location.state?.from || "/");
+    } catch (error) {
+      const msg =
+        error.code === "auth/popup-closed-by-user"
+          ? "Google sign-in was cancelled."
+          : error.message || "Failed to sign in with Google. Try again.";
+      toast.error(msg);
+    }
   };
 
   return (
@@ -90,7 +110,6 @@ const Login = () => {
               name="password"
               required
             />
-
             <button
               type="button"
               onClick={() => setShowPassword(!showPassword)}
@@ -114,7 +133,7 @@ const Login = () => {
           <button
             type="button"
             onClick={handleGoogleSignin}
-            className="flex justify-center items-center gap-2 border border-primary rounded-xl py-2  hover:bg-primary/10 transition-all"
+            className="flex justify-center items-center gap-2 border border-primary rounded-xl py-2 hover:bg-primary/10 transition-all"
           >
             <img
               src="https://www.svgrepo.com/show/475656/google-color.svg"
