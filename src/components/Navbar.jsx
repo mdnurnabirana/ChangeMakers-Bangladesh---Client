@@ -40,13 +40,13 @@ const Navbar = () => {
   };
 
   return (
-    <header className="bg-background text-text shadow-sm fixed top-0 left-0 w-full z-50">
+    <header className="bg-primary text-text shadow-sm top-0 left-0 w-full z-50">
       <div className="max-w-[1296px] mx-auto flex justify-between items-center p-3">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <img src={logo} alt="Logo" className="h-14" />
           <div className="flex flex-col text-xl font-bold">
-            <span className="text-primary">Change</span>
+            <span className="text-background">Change</span>
             <span className="text-secondary">Makers</span>
           </div>
         </Link>
@@ -58,8 +58,8 @@ const Navbar = () => {
               <NavLink
                 to={item.link}
                 className={({ isActive }) =>
-                  `hover:text-primary transition ${
-                    isActive ? "text-primary font-semibold" : ""
+                  `hover:text-text transition ${
+                    isActive ? "text-text font-semibold" : ""
                   }`
                 }
               >
@@ -104,21 +104,21 @@ const Navbar = () => {
               {profileMenuOpen && !loading && (
                 <div className="absolute right-0 mt-2 w-48 bg-secondary rounded-lg shadow-lg py-2 flex flex-col gap-2 z-50">
                   <Link
-                    to="/profile/create-event"
+                    to="/create-event"
                     className="px-4 py-2 hover:bg-primary/20 rounded transition"
                     onClick={() => setProfileMenuOpen(false)}
                   >
                     Create Event
                   </Link>
                   <Link
-                    to="/profile/manage-events"
+                    to="/manage-event"
                     className="px-4 py-2 hover:bg-primary/20 rounded transition"
                     onClick={() => setProfileMenuOpen(false)}
                   >
                     Manage Events
                   </Link>
                   <Link
-                    to="/profile/joined-events"
+                    to="/joined-events"
                     className="px-4 py-2 hover:bg-primary/20 rounded transition"
                     onClick={() => setProfileMenuOpen(false)}
                   >
@@ -176,21 +176,21 @@ const Navbar = () => {
               {profileMenuOpen && !loading && (
                 <div className="absolute right-0 mt-2 w-48 bg-secondary rounded-lg shadow-lg py-2 flex flex-col gap-2 z-50">
                   <Link
-                    to="/profile/create-event"
+                    to="/create-event"
                     className="px-4 py-2 hover:bg-primary/20 rounded transition"
                     onClick={() => setProfileMenuOpen(false)}
                   >
                     Create Event
                   </Link>
                   <Link
-                    to="/profile/manage-events"
+                    to="/manage-event"
                     className="px-4 py-2 hover:bg-primary/20 rounded transition"
                     onClick={() => setProfileMenuOpen(false)}
                   >
                     Manage Events
                   </Link>
                   <Link
-                    to="/profile/joined-events"
+                    to="/joined-event"
                     className="px-4 py-2 hover:bg-primary/20 rounded transition"
                     onClick={() => setProfileMenuOpen(false)}
                   >
@@ -226,7 +226,7 @@ const Navbar = () => {
               to={item.link}
               className={({ isActive }) =>
                 `px-2 py-2 rounded transition hover:bg-primary/20 ${
-                  isActive ? "text-primary font-semibold" : ""
+                  isActive ? "text-text font-semibold" : ""
                 }`
               }
               onClick={() => setMobileMenuOpen(false)}

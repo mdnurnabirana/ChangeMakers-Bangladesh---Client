@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 @theme {
   --color-text: var(--t);
@@ -22,8 +23,4 @@
   --p: #519e88;
   --s: #2d4358;
   --a: #3d4976;
-}
-
-* {
-  font-family: "Inter", sans-serif;
 }
