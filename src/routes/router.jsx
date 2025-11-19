@@ -7,11 +7,13 @@ import PrivateRoute from "../privateRoute/privateRoute";
 import CreateEvent from "../pages/createEvent";
 import JoinedEvent from "../pages/JoinedEvent";
 import ManageEvent from "../pages/ManageEvent";
+import Error from "../components/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <HomeLayout />,
+    errorElement: <Error />
   },
   {
     path: "/auth",
