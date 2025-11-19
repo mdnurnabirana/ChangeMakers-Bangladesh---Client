@@ -46,14 +46,14 @@ const Gallery = () => {
   return (
     <section className="py-15 lg:py-20 bg-background">
       <div className="max-w-7xl mx-auto px-3 lg:px-4">
-        <div className="text-center mb-16 lg:mb-20">
+        <div className="text-center mb-6 lg:mb-10">
           <h1
-            className="text-4xl sm:text-5xl lg:text-6xl font-bold text-text tracking-tight"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary tracking-tight"
             style={{ fontFamily: "Inter, system-ui, sans-serif" }}
           >
             Event Gallery
           </h1>
-          <p className="mt-4 text-md lg:text-lg text-text/70 max-w-2xl mx-auto">
+          <p className="mt-4 text-md lg:text-lg text-text/80 max-w-2xl mx-auto">
             Capturing moments of unity, care, and positive change.
           </p>
         </div>
