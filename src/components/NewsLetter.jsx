@@ -1,32 +1,31 @@
-import React, { useState } from 'react';
-import toast from 'react-hot-toast';
+import React, { useState } from "react";
+import toast from "react-hot-toast";
 
 const NewsLetter = () => {
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
 
   const handleSubscribe = (e) => {
     e.preventDefault();
     if (!email) {
-      toast.error('Please enter a valid email');
+      toast.error("Please enter a valid email");
       return;
     }
 
-    toast.success('Subscribed successfully! 🎉');
-    setEmail('');
+    toast.success("Subscribed successfully! 🎉");
+    setEmail("");
   };
 
   return (
-    <section className="w-full bg-background text-text pt-6 sm:pt-10">
-      <div className="mx-auto text-center bg-primary">
-        
-        <div className="p-12 bg-white/10 backdrop-blur-xl shadow-2xl border border-white/30">
-
+    <section className="w-full bg-background text-text pt-10 sm:pt-20">
+      <div className="mx-auto text-center bg-gradient-to-br from-primary via-secondary to-accent">
+        <div className="sm:py-20 py-10 sm:px-0 px-5 bg-white/10 backdrop-blur-xl shadow-xl border border-white/30">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text tracking-tight mb-4">
             Join Our Newsletter
           </h2>
 
           <p className="text-lg text-text/80 max-w-2xl mx-auto mb-10">
-            Subscribe to receive exclusive updates, impactful stories, and the latest insights from ChangeMakers.
+            Subscribe to receive exclusive updates, impactful stories, and the
+            latest insights from ChangeMakers.
           </p>
 
           <form
@@ -43,12 +42,11 @@ const NewsLetter = () => {
 
             <button
               type="submit"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-accent text-background font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
+              className="w-auto px-8 py-4 rounded-xl bg-accent text-text font-semibold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300"
             >
               Subscribe
             </button>
           </form>
-
         </div>
       </div>
     </section>
