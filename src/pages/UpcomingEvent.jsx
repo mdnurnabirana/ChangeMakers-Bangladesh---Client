@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 import Navbar from "../components/Navbar";
 import { Link } from "react-router";
+import Footer from "../components/Footer";
 
 const UpcomingEvent = () => {
   const [events, setEvents] = useState([]);
@@ -82,7 +83,7 @@ const UpcomingEvent = () => {
 
                   <div className="mt-auto pt-5">
                     <Link
-                      to={`/event/${event._id}`}
+                      to={`/upcoming-events/${event._id}`}
                       className="w-full block text-center bg-primary text-background font-semibold py-2 rounded-lg hover:bg-primary/80 transition"
                     >
                       View Event Detail
@@ -94,6 +95,8 @@ const UpcomingEvent = () => {
           </div>
         </div>
       </section>
+
+      <Footer />
     </>
   );
 };

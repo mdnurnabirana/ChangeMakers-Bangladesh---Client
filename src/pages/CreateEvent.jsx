@@ -12,7 +12,6 @@ const eventTypes = ["Cleanup", "Plantation", "Donation", "Food Drive", "Recyclin
 
 const CreateEvent = () => {
   const { user } = useContext(AuthContext);
-  console.log(user)
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
