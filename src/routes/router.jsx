@@ -8,6 +8,7 @@ import CreateEvent from "../pages/CreateEvent";
 import JoinedEvent from "../pages/JoinedEvent";
 import ManageEvent from "../pages/ManageEvent";
 import Error from "../components/Error";
+import UpcomingEvent from "../pages/UpcomingEvent";
 
 const router = createBrowserRouter([
   {
@@ -31,7 +32,7 @@ const router = createBrowserRouter([
   },
   {
     path: "/upcoming-events",
-    element: <h1>Hello</h1>
+    element: <UpcomingEvent />
   },
   {
     path: "/create-event",

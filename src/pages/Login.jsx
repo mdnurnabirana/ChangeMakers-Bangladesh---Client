@@ -52,7 +52,7 @@ const Login = () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          firebaseUid: user.uid,
+          userId: user.uid,
           name: user.displayName,
           email: user.email,
           profilePhoto: user.photoURL,

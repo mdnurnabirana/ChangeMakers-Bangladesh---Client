@@ -12,6 +12,7 @@ const eventTypes = ["Cleanup", "Plantation", "Donation", "Food Drive", "Recyclin
 
 const CreateEvent = () => {
   const { user } = useContext(AuthContext);
+  console.log(user)
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -62,9 +63,7 @@ const CreateEvent = () => {
     const payload = {
       ...formData,
       eventDate,
-      user_name: user?.displayName || "",
-      user_email: user?.email || "",
-      user_photo: user?.photoURL || "",
+      userId: user?.uid || ""
     };
 
     try {

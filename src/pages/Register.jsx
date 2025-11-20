@@ -63,7 +63,7 @@ const Register = () => {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                  firebaseUid: result.user.uid,
+                  userId: result.user.uid,
                   name: name,
                   email: email,
                   profilePhoto: photo,

@@ -10,7 +10,7 @@ import Loading from "./Loading";
 
 const links = [
   { id: 1, name: "Home", link: "/" },
-  { id: 2, name: "Upcoming Events", link: "/events" },
+  { id: 2, name: "Upcoming Events", link: "/upcoming-events" },
   { id: 3, name: "About", link: "/about" },
 ];
 

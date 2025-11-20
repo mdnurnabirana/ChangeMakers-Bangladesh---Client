@@ -17,7 +17,7 @@ const NewsLetter = () => {
 
   return (
     <section className="w-full bg-background text-text pt-10 sm:pt-20">
-      <div className="mx-auto text-center bg-gradient-to-br from-primary via-secondary to-accent">
+      <div className="mx-auto text-center bg-linear-to-br from-primary via-secondary to-accent">
         <div className="sm:py-20 py-10 sm:px-0 px-5 bg-white/10 backdrop-blur-xl shadow-xl border border-white/30">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text tracking-tight mb-4">
             Join Our Newsletter
