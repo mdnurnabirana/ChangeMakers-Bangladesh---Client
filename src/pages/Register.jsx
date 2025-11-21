@@ -83,7 +83,7 @@ const Register = () => {
             // Logout and redirect
             logOut().then(() => {
               toast.success("Registration successful! Please login.");
-              navigate("/auth/login");
+              navigate("/login");
               form.reset();
             });
           })
@@ -179,11 +179,10 @@ const Register = () => {
 
           {error && <p className="text-center text-red-500 text-sm">{error}</p>}
 
-          {/* Login Link */}
           <p className="text-center text-text text-sm">
             Already have an account?{" "}
             <Link
-              to="/auth/login"
+              to="/login"
               className="text-primary font-semibold hover:underline"
             >
               Login Now

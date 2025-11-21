@@ -155,7 +155,7 @@ const ManageEvent = () => {
     }).then(async (result) => {
       if (!result.isConfirmed) return;
       try {
-        const res = await fetch(`http://localhost:3000/event/${id}`, {
+        const res = await fetch(`http://localhost:3000/manage-event/${id}`, {
           method: "DELETE",
         });
         const data = await res.json();
