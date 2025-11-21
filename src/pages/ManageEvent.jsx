@@ -112,12 +112,13 @@ const ManageEvent = () => {
 
     setUpdating(true);
     try {
-      const res = await fetch(`http://localhost:3000/event/${currentEvent._id}`, {
+      const res = await fetch(`http://localhost:3000/manage-event/${currentEvent._id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           ...formData,
           eventDate: eventDate.toISOString(),
+          userId: user.uid, 
         }),
       });
       const data = await res.json();
@@ -171,7 +172,7 @@ const ManageEvent = () => {
   };
 
   return (
-    <section className="bg-background/80">
+    <section className="bg-background/80 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="text-center mb-12">
           <h1 className="text-4xl sm:text-5xl font-extrabold text-primary mb-4">
