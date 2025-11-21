@@ -56,7 +56,7 @@ const Register = () => {
         updateUserProfile({ displayName: name, photoURL: photo })
           .then(async () => {
             try {
-              const res = await fetch("http://localhost:3000/user", {
+              const res = await fetch("https://changemakersbd-i6vxk728w-md-nurnabi-ranas-projects.vercel.app/user", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

@@ -49,7 +49,7 @@ const CreateEvent = () => {
     const payload = { ...formData, eventDate, userId: user?.uid || "" };
     try {
       setLoading(true);
-      const res = await fetch("http://localhost:3000/event", {
+      const res = await fetch("https://changemakersbd-i6vxk728w-md-nurnabi-ranas-projects.vercel.app/event", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),

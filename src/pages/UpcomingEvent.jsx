@@ -16,7 +16,7 @@ const UpcomingEvent = () => {
     const fetchEvents = async () => {
       setLoading(true);
       try {
-        const res = await fetch("http://localhost:3000/event");
+        const res = await fetch("https://changemakersbd-i6vxk728w-md-nurnabi-ranas-projects.vercel.app/event");
         const data = await res.json();
 
         if (data.success) {

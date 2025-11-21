@@ -50,7 +50,7 @@ const ManageEvent = () => {
       setLoading(true);
       try {
         const res = await fetch(
-          `http://localhost:3000/manage-event/${user.uid}`
+          `https://changemakersbd-i6vxk728w-md-nurnabi-ranas-projects.vercel.app/manage-event/${user.uid}`
         );
         const data = await res.json();
         if (data.success) setEvents(data.data || []);
@@ -117,7 +117,7 @@ const ManageEvent = () => {
     setUpdating(true);
     try {
       const res = await fetch(
-        `http://localhost:3000/manage-event/${currentEvent._id}`,
+        `https://changemakersbd-i6vxk728w-md-nurnabi-ranas-projects.vercel.app/manage-event/${currentEvent._id}`,
         {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
@@ -162,7 +162,7 @@ const ManageEvent = () => {
     }).then(async (result) => {
       if (!result.isConfirmed) return;
       try {
-        const res = await fetch(`http://localhost:3000/manage-event/${id}`, {
+        const res = await fetch(`https://changemakersbd-i6vxk728w-md-nurnabi-ranas-projects.vercel.app/manage-event/${id}`, {
           method: "DELETE",
         });
         const data = await res.json();

@@ -20,7 +20,7 @@ const JoinedEvent = () => {
       setLoading(true);
       try {
         const res = await fetch(
-          `http://localhost:3000/joined-events/${user.uid}`
+          `https://changemakersbd-i6vxk728w-md-nurnabi-ranas-projects.vercel.app/joined-events/${user.uid}`
         );
         const data = await res.json();
         if (data.success) {

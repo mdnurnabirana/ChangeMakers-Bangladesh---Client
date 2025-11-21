@@ -21,8 +21,8 @@ const EventDetail = () => {
       setLoading(true);
       try {
         const [eventRes, joinedRes] = await Promise.all([
-          fetch(`http://localhost:3000/event/${id}`),
-          fetch(`http://localhost:3000/joined-event/${id}`),
+          fetch(`https://changemakersbd-i6vxk728w-md-nurnabi-ranas-projects.vercel.app/event/${id}`),
+          fetch(`https://changemakersbd-i6vxk728w-md-nurnabi-ranas-projects.vercel.app/joined-event/${id}`),
         ]);
         const eventData = await eventRes.json();
         const joinedData = await joinedRes.json();
@@ -48,7 +48,7 @@ const EventDetail = () => {
     if (!user) return toast.info("Please log in first to join this event.");
     setJoining(true);
     try {
-      const response = await fetch(`http://localhost:3000/join-event/${id}`, {
+      const response = await fetch(`https://changemakersbd-i6vxk728w-md-nurnabi-ranas-projects.vercel.app/join-event/${id}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ userId: user.uid }),
