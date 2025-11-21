@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import Loading from "../components/Loading";
 import toast from "react-hot-toast";
+import { FaCalendarAlt } from "react-icons/fa";
 
 const JoinedEvent = () => {
   const { user } = useContext(AuthContext);
@@ -17,7 +18,9 @@ const JoinedEvent = () => {
     const fetchJoinedEvents = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`http://localhost:3000/joined-events/${user.uid}`);
+        const res = await fetch(
+          `http://localhost:3000/joined-events/${user.uid}`
+        );
         const data = await res.json();
         if (data.success) {
           setEvents(data.data || []);
@@ -43,45 +46,63 @@ const JoinedEvent = () => {
     );
   }
 
-  if (events.length === 0) {
-    return (
-      <p className="text-center text-xl pt-20">
-        You have not joined any events yet.
-      </p>
-    );
-  }
-
   return (
     <section className="bg-background min-h-screen pt-24 px-4">
       <div className="max-w-7xl mx-auto mb-8 text-center">
-        <h1 className="text-4xl sm:text-5xl font-extrabold text-primary mb-4">Joined Events</h1>
-        <p className="text-lg text-text/80 max-w-2xl mx-auto mb-4">Make Bangladesh Better Together</p>
+        <h1 className="text-4xl sm:text-5xl font-extrabold text-primary mb-4">
+          Joined Events
+        </h1>
+        <p className="text-lg text-text/80 max-w-2xl mx-auto mb-4">
+          Make Bangladesh Better Together
+        </p>
       </div>
 
-      <div className="max-w-[1296px] mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {events.map((event) => (
-          <div
-            key={event._id}
-            className="bg-secondary/10 rounded-2xl p-4 shadow hover:shadow-lg transition"
-          >
-            <img
-              src={event.thumbnail}
-              alt={event.title}
-              className="w-full h-48 object-cover rounded-xl mb-4"
-            />
-            <h2 className="text-xl font-bold text-primary mb-2">{event.title}</h2>
-            <p className="text-text/70 mb-1">
-              <strong>Location:</strong> {event.location}
-            </p>
-            <p className="text-text/70 mb-1">
-              <strong>Type:</strong> {event.type}
-            </p>
-            <p className="text-text/70">
-              <strong>Date:</strong> {new Date(event.eventDate).toLocaleDateString()}
+      {events.length === 0 && (
+        <div className="flex justify-center items-center px-4">
+          <div className="text-center py-20 bg-background/90 rounded-3xl shadow-lg max-w-[1296px] w-full shadow-primary/20">
+            <div className="w-32 h-32 mx-auto mb-8 bg-linear-to-r from-accent via-secondary to-primary rounded-full flex items-center justify-center">
+              <FaCalendarAlt className="text-5xl text-text/90" />
+            </div>
+            <h2 className="text-3xl font-bold text-text/80 mb-4">
+              No Joined Events
+            </h2>
+            <p className="text-lg text-text/70 max-w-md mx-auto">
+              You haven't joined any events yet. Explore upcoming community
+              events and get involved!
             </p>
           </div>
-        ))}
-      </div>
+        </div>
+      )}
+
+      {events.length > 0 && (
+        <div className="max-w-[1296px] mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {events.map((event) => (
+            <div
+              key={event._id}
+              className="bg-secondary/10 rounded-2xl p-4 shadow hover:shadow-lg transition"
+            >
+              <img
+                src={event.thumbnail}
+                alt={event.title}
+                className="w-full h-48 object-cover rounded-xl mb-4"
+              />
+              <h2 className="text-xl font-bold text-primary mb-2">
+                {event.title}
+              </h2>
+              <p className="text-text/70 mb-1">
+                <strong>Location:</strong> {event.location}
+              </p>
+              <p className="text-text/70 mb-1">
+                <strong>Type:</strong> {event.type}
+              </p>
+              <p className="text-text/70">
+                <strong>Date:</strong>{" "}
+                {new Date(event.eventDate).toLocaleDateString()}
+              </p>
+            </div>
+          ))}
+        </div>
+      )}
     </section>
   );
 };
