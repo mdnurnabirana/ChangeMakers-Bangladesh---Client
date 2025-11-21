@@ -48,7 +48,7 @@ const Login = () => {
       const user = result.user;
 
       // Save user info in backend
-      const res = await fetch("https://changemakersbd-i6vxk728w-md-nurnabi-ranas-projects.vercel.app/user", {
+      const res = await fetch("https://changemakersbd.vercel.app/user", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

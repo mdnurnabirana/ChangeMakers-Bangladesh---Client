@@ -11,7 +11,9 @@ const stagger = {
 
 const About = () => {
   return (
-    <section className="bg-background text-text pt-20 pb-28">
+    <>
+      <title>About</title>
+      <section className="bg-background text-text pt-20 pb-28">
       <div className="max-w-[1296px] mx-auto px-5">
 
         <motion.div
@@ -167,6 +169,7 @@ const About = () => {
 
       </div>
     </section>
+    </>
   );
 };
 
