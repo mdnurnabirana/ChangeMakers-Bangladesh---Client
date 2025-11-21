@@ -1,67 +1,58 @@
 import { createBrowserRouter } from "react-router";
-import HomeLayout from "../layouts/HomeLayout";
-import AuthLayout from "../layouts/AuthLayout";
+import RootLayout from "../layouts/RootLayout";
 import Login from "../pages/Login";
 import Register from "../pages/Register";
-import PrivateRoute from "../privateRoute/privateRoute";
 import CreateEvent from "../pages/CreateEvent";
 import JoinedEvent from "../pages/JoinedEvent";
 import ManageEvent from "../pages/ManageEvent";
 import Error from "../components/Error";
 import UpcomingEvent from "../pages/UpcomingEvent";
 import EventDetail from "../pages/EventDetail";
+import Home from "../pages/Home";
+import PrivateRoute from "../privateRoute/PrivateRoute";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <HomeLayout />,
+    element: <RootLayout />,
     errorElement: <Error />,
-  },
-  {
-    path: "/auth",
-    Component: AuthLayout,
     children: [
+      { path: "/", element: <Home /> },
+      { path: "/login", element: <Login /> },
+      { path: "/register", element: <Register /> },
       {
-        path: "login",
-        Component: Login,
+        path: "/upcoming-events",
+        element: <UpcomingEvent />,
       },
       {
-        path: "register",
-        Component: Register,
+        path: "/upcoming-events/:id",
+        element: <EventDetail />,
+      },
+      {
+        path: "/create-event",
+        element: (
+          <PrivateRoute>
+            <CreateEvent />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/joined-event",
+        element: (
+          <PrivateRoute>
+            <JoinedEvent />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/manage-event",
+        element: (
+          <PrivateRoute>
+            <ManageEvent />
+          </PrivateRoute>
+        ),
       },
     ],
-  },
-  {
-    path: "/upcoming-events",
-    element: <UpcomingEvent />
-  },
-  {
-    path: "/upcoming-events/:id",
-    element: <EventDetail />
-  },
-  {
-    path: "/create-event",
-    element: (
-      <PrivateRoute>
-        <CreateEvent />
-      </PrivateRoute>
-    ),
-  },
-  {
-    path: "/joined-event",
-    element: (
-      <PrivateRoute>
-        <JoinedEvent></JoinedEvent>
-      </PrivateRoute>
-    ),
-  },
-  {
-    path: "/manage-event",
-    element: (
-      <PrivateRoute>
-        <ManageEvent></ManageEvent>
-      </PrivateRoute>
-    ),
   },
 ]);
 

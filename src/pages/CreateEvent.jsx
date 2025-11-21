@@ -1,12 +1,10 @@
 import React, { useContext, useState } from "react";
-import Navbar from "../components/Navbar";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 import Loading from "../components/Loading";
-import Footer from "../components/Footer";
 
 const eventTypes = ["Cleanup", "Plantation", "Donation", "Food Drive", "Recycling"];
 
@@ -21,14 +19,11 @@ const CreateEvent = () => {
     thumbnail: "",
     location: "",
   });
-
   const [eventDate, setEventDate] = useState(null);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
+  const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const validateForm = () => {
     const newErrors = {};
@@ -37,7 +32,8 @@ const CreateEvent = () => {
     else if (formData.title.length < 5) newErrors.title = "Title must be at least 5 characters";
 
     if (!formData.description.trim()) newErrors.description = "Description is required";
-    else if (formData.description.length < 250) newErrors.description = "Description must be at least 250 characters";
+    else if (formData.description.length < 250)
+      newErrors.description = "Description must be at least 250 characters";
 
     if (!formData.type) newErrors.type = "Please select an event type";
 
@@ -56,14 +52,9 @@ const CreateEvent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     if (!validateForm()) return;
 
-    const payload = {
-      ...formData,
-      eventDate,
-      userId: user?.uid || ""
-    };
+    const payload = { ...formData, eventDate, userId: user?.uid || "" };
 
     try {
       setLoading(true);
@@ -81,20 +72,25 @@ const CreateEvent = () => {
         navigate("/upcoming-events");
       } else {
         toast.error(data.message || "Failed to create event!");
-        alert(data.message || "Failed to create event!");
       }
     } catch (err) {
-      toast.error("Server error!");
-      alert("Server error!");
+      toast.error(err);
     } finally {
       setLoading(false);
     }
   };
 
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center">
+        <Loading />
+      </div>
+    );
+  }
+
   return (
-    <section className="bg-background min-h-screen">
-      <Navbar />
-      <section className="max-w-[660px] mx-auto mt-20 bg-primary/10 p-8 rounded-2xl drop-shadow-lg shadow-lg">
+    <section className="bg-background min-h-screen p-5 flex justify-center">
+      <div className="max-w-[660px] w-full mt-20 bg-primary/10 p-8 rounded-2xl drop-shadow-lg shadow-lg">
         <h1 className="text-3xl font-semibold text-text mb-2">Create Event</h1>
         <p className="text-primary mb-6 font-semibold">
           Let's make the world better together!
@@ -139,7 +135,7 @@ const CreateEvent = () => {
             >
               <option value="">Select event type</option>
               {eventTypes.map((type) => (
-                <option className="text-text/70" key={type} value={type}>{type}</option>
+                <option key={type} value={type}>{type}</option>
               ))}
             </select>
             {errors.type && <p className="text-red-500 text-sm">{errors.type}</p>}
@@ -178,7 +174,7 @@ const CreateEvent = () => {
             <label className="text-text font-medium mb-1">Event Date</label>
             <DatePicker
               selected={eventDate}
-              onChange={(date) => setEventDate(date)}
+              onChange={setEventDate}
               minDate={new Date()}
               placeholderText="Select event date"
               className="w-full p-3 bg-background border text-text border-primary rounded-lg outline-primary placeholder:text-text/50 transition cursor-pointer"
@@ -187,17 +183,16 @@ const CreateEvent = () => {
             {errors.eventDate && <p className="text-red-500 text-sm">{errors.eventDate}</p>}
           </div>
 
-          {/* Submit Button */}
+          {/* Submit */}
           <button
             type="submit"
             disabled={loading}
             className="w-full p-3 bg-primary text-text font-semibold rounded-lg hover:bg-primary/80 transition"
           >
-            {loading ? <Loading size={35} /> : "Create Event"}
+            Create Event
           </button>
         </form>
-      </section>
-      <Footer />
+      </div>
     </section>
   );
 };

@@ -29,8 +29,6 @@ const UpcomingEvent = () => {
 
   return (
     <>
-      <Navbar />
-
       <section className="bg-background min-h-screen">
         <div className="max-w-[1296px] mx-auto pt-20 px-4">
           <h1
@@ -95,8 +93,6 @@ const UpcomingEvent = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
     </>
   );
 };

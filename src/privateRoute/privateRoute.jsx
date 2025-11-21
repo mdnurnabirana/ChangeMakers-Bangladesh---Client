@@ -7,8 +7,13 @@ import { useLocation } from "react-router";
 const PrivateRoute = ({ children }) => {
   const { user, loading } = useContext(AuthContext);
   const location = useLocation();
-  
-  if (loading) return <Loading size={48} />;
+
+  if (loading)
+    return (
+      <div className="w-full min-h-screen bg-background flex justify-center items-center">
+        <Loading />
+      </div>
+    );
 
   if (user) return children;
 

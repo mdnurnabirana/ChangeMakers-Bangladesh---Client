@@ -1,7 +1,5 @@
 import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
 import Loading from "../components/Loading";
 import avatar from "../assets/avatar.png";
 import { AuthContext } from "../provider/AuthProvider";
@@ -77,8 +75,6 @@ const EventDetail = () => {
 
   return (
     <>
-      <Navbar />
-
       <section className="bg-background min-h-screen pt-24 px-4">
         <div className="max-w-[1296px] mx-auto">
           <div className="flex flex-col lg:flex-row gap-10 bg-secondary/10 p-4 rounded-2xl drop-shadow-2xl">
@@ -150,8 +146,6 @@ const EventDetail = () => {
           </div>
         </div>
       </section>
-
-      <Footer />
     </>
   );
 };

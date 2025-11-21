@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { FiSun, FiMenu, FiX } from "react-icons/fi";
 import { BsMoonStarsFill } from "react-icons/bs";
-import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
 import avatarFallback from "../assets/avatar.png";
 import logo from "../assets/logo.png";
 import Loading from "./Loading";
+import { AuthContext } from "../provider/AuthProvider";
 
 const links = [
   { id: 1, name: "Home", link: "/" },
@@ -21,7 +21,6 @@ const Navbar = () => {
 
   const { user, logOut, loading } = useContext(AuthContext);
 
-  // Theme management
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
@@ -77,31 +76,24 @@ const Navbar = () => {
             className="p-2 rounded-full bg-secondary border-2 border-primary text-text"
             aria-label="Toggle theme"
           >
-            {theme === "light" ? (
-              <BsMoonStarsFill size={20} />
-            ) : (
-              <FiSun size={20} />
-            )}
+            {theme === "light" ? <BsMoonStarsFill size={20} /> : <FiSun size={20} />}
           </button>
 
           {/* Profile / Login */}
-          {user ? (
+          {loading ? (
+            <div className="w-10 h-10">
+              <Loading size={40} />
+            </div>
+          ) : user ? (
             <div className="relative">
-              {!loading ? (
-                <img
-                  src={user.photoURL || avatarFallback}
-                  alt={user.displayName || "User"}
-                  onError={(e) => (e.currentTarget.src = avatarFallback)}
-                  className="w-10 h-10 rounded-full cursor-pointer object-cover border-2 border-primary"
-                  onClick={toggleProfileMenu}
-                />
-              ) : (
-                <div className="w-10 h-10">
-                  <Loading size={40} />
-                </div>
-              )}
-
-              {profileMenuOpen && !loading && (
+              <img
+                src={user.photoURL || avatarFallback}
+                alt={user.displayName || "User"}
+                onError={(e) => (e.currentTarget.src = avatarFallback)}
+                className="w-10 h-10 rounded-full cursor-pointer object-cover border-2 border-primary"
+                onClick={toggleProfileMenu}
+              />
+              {profileMenuOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-secondary rounded-lg shadow-lg py-2 flex flex-col gap-2 z-50">
                   <Link
                     to="/create-event"
@@ -118,7 +110,7 @@ const Navbar = () => {
                     Manage Events
                   </Link>
                   <Link
-                    to="/joined-events"
+                    to="/joined-event"
                     className="px-4 py-2 hover:bg-primary/20 rounded transition"
                     onClick={() => setProfileMenuOpen(false)}
                   >
@@ -135,7 +127,7 @@ const Navbar = () => {
             </div>
           ) : (
             <Link
-              to="/auth/login"
+              to="/login"
               className="bg-secondary px-3 py-2 rounded-xl border-2 border-primary text-text font-semibold"
             >
               Login
@@ -150,30 +142,23 @@ const Navbar = () => {
             className="p-2 rounded-full bg-secondary border-2 border-primary text-text"
             aria-label="Toggle theme"
           >
-            {theme === "light" ? (
-              <BsMoonStarsFill size={20} />
-            ) : (
-              <FiSun size={20} />
-            )}
+            {theme === "light" ? <BsMoonStarsFill size={20} /> : <FiSun size={20} />}
           </button>
 
-          {user && (
+          {loading ? (
+            <div className="w-10 h-10">
+              <Loading size={40} />
+            </div>
+          ) : user && (
             <div className="relative">
-              {!loading ? (
-                <img
-                  src={user.photoURL || avatarFallback}
-                  alt={user.displayName || "User"}
-                  onError={(e) => (e.currentTarget.src = avatarFallback)}
-                  className="w-10 h-10 rounded-full cursor-pointer object-cover border-2 border-primary"
-                  onClick={toggleProfileMenu}
-                />
-              ) : (
-                <div className="w-10 h-10">
-                  <Loading size={40} />
-                </div>
-              )}
-
-              {profileMenuOpen && !loading && (
+              <img
+                src={user.photoURL || avatarFallback}
+                alt={user.displayName || "User"}
+                onError={(e) => (e.currentTarget.src = avatarFallback)}
+                className="w-10 h-10 rounded-full cursor-pointer object-cover border-2 border-primary"
+                onClick={toggleProfileMenu}
+              />
+              {profileMenuOpen && (
                 <div className="absolute right-0 mt-2 w-48 bg-secondary rounded-lg shadow-lg py-2 flex flex-col gap-2 z-50">
                   <Link
                     to="/create-event"
@@ -235,9 +220,9 @@ const Navbar = () => {
             </NavLink>
           ))}
 
-          {!user && (
+          {!loading && !user && (
             <Link
-              to="/auth/login"
+              to="/login"
               className="mt-2 px-4 py-2 rounded-xl border-2 border-primary bg-secondary text-text font-semibold"
               onClick={() => setMobileMenuOpen(false)}
             >
