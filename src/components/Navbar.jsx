@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Link, NavLink } from "react-router";
-import { FiSun, FiMenu, FiX } from "react-icons/fi";
+import { FiSun, FiMenu, FiX, FiLogOut } from "react-icons/fi";
 import { BsMoonStarsFill } from "react-icons/bs";
+import { motion, AnimatePresence } from "motion/react";
 import toast from "react-hot-toast";
 import avatarFallback from "../assets/avatar.png";
 import logo from "../assets/logo.png";
@@ -17,7 +18,7 @@ const links = [
 const Navbar = () => {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const [profileClickOpen, setProfileClickOpen] = useState(false);
 
   const { user, logOut, loading } = useContext(AuthContext);
 
@@ -28,38 +29,38 @@ const Navbar = () => {
 
   const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
-  const toggleProfileMenu = () => setProfileMenuOpen(!profileMenuOpen);
 
+  // LOGOUT
   const handleLogout = () => {
     logOut()
       .then(() => toast.success("Logged out successfully"))
       .catch((err) => toast.error(err.message));
-    setProfileMenuOpen(false);
+    setProfileClickOpen(false);
     setMobileMenuOpen(false);
   };
 
+  const activeClass = "text-primary font-semibold";
+
   return (
-    <header className="bg-primary text-text shadow-sm top-0 left-0 w-full z-50">
+    <header className="bg-background drop-shadow-lg drop-shadow-accent/40 z-9999 relative">
       <div className="max-w-[1296px] mx-auto flex justify-between items-center p-3">
+
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <img src={logo} alt="Logo" className="h-14" />
           <div className="flex flex-col text-xl font-bold">
-            <span className="text-background">Change</span>
+            <span className="text-primary">Change</span>
             <span className="text-secondary">Makers</span>
           </div>
         </Link>
 
-        {/* Desktop Menu */}
         <ul className="hidden md:flex gap-6 list-none">
           {links.map((item) => (
-            <li key={item.id} className="cursor-pointer font-medium">
+            <li key={item.id}>
               <NavLink
                 to={item.link}
                 className={({ isActive }) =>
-                  `hover:text-text transition ${
-                    isActive ? "text-text font-semibold" : ""
-                  }`
+                  `hover:text-secondary transition ${isActive ? activeClass : "text-text"}`
                 }
               >
                 {item.name}
@@ -68,62 +69,91 @@ const Navbar = () => {
           ))}
         </ul>
 
-        {/* Desktop Right Controls */}
         <div className="hidden md:flex items-center gap-4">
-          {/* Theme Toggle */}
+
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full bg-secondary border-2 border-primary text-text"
-            aria-label="Toggle theme"
           >
             {theme === "light" ? <BsMoonStarsFill size={20} /> : <FiSun size={20} />}
           </button>
 
-          {/* Profile / Login */}
+          {/* Profile */}
           {loading ? (
             <div className="w-10 h-10">
               <Loading size={40} />
             </div>
           ) : user ? (
-            <div className="relative">
+            <div className="relative group">
+              {/* Avatar */}
               <img
                 src={user.photoURL || avatarFallback}
-                alt={user.displayName || "User"}
                 onError={(e) => (e.currentTarget.src = avatarFallback)}
-                className="w-10 h-10 rounded-full cursor-pointer object-cover border-2 border-primary"
-                onClick={toggleProfileMenu}
+                alt="User"
+                className="w-10 h-10 rounded-full border-2 border-primary cursor-pointer object-cover"
+                onClick={() => setProfileClickOpen(!profileClickOpen)}
               />
-              {profileMenuOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-secondary rounded-lg shadow-lg py-2 flex flex-col gap-2 z-50">
-                  <Link
-                    to="/create-event"
-                    className="px-4 py-2 hover:bg-primary/20 rounded transition"
-                    onClick={() => setProfileMenuOpen(false)}
+
+              <AnimatePresence>
+                {!profileClickOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -6 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -6 }}
+                    className="absolute right-0 mt-2 w-56 bg-secondary rounded-lg shadow-lg p-3 z-9999 hidden group-hover:block text-sm text-text"
                   >
-                    Create Event
-                  </Link>
-                  <Link
-                    to="/manage-event"
-                    className="px-4 py-2 hover:bg-primary/20 rounded transition"
-                    onClick={() => setProfileMenuOpen(false)}
+                    <p className="font-semibold">{user.displayName}</p>
+                    <p className="text-xs opacity-80">{user.email}</p>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
+              <AnimatePresence>
+                {profileClickOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="absolute right-0 mt-2 w-56 bg-secondary rounded-lg shadow-lg p-3 z-99999 flex flex-col gap-2 text-text"
                   >
-                    Manage Events
-                  </Link>
-                  <Link
-                    to="/joined-event"
-                    className="px-4 py-2 hover:bg-primary/20 rounded transition"
-                    onClick={() => setProfileMenuOpen(false)}
-                  >
-                    Joined Events
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="px-4 py-2 hover:bg-red-500/20 text-red-600 rounded transition"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
+                    <div className="border-b border-primary/20 pb-2">
+                      <p className="font-semibold">{user.displayName}</p>
+                      <p className="text-xs opacity-80">{user.email}</p>
+                    </div>
+
+                    <Link
+                      to="/create-event"
+                      onClick={() => setProfileClickOpen(false)}
+                      className="px-2 py-2 rounded hover:bg-primary/20 transition"
+                    >
+                      Create Event
+                    </Link>
+
+                    <Link
+                      to="/manage-event"
+                      onClick={() => setProfileClickOpen(false)}
+                      className="px-2 py-2 rounded hover:bg-primary/20 transition"
+                    >
+                      Manage Events
+                    </Link>
+
+                    <Link
+                      to="/joined-event"
+                      onClick={() => setProfileClickOpen(false)}
+                      className="px-2 py-2 rounded hover:bg-primary/20 transition"
+                    >
+                      Joined Events
+                    </Link>
+
+                    <button
+                      onClick={handleLogout}
+                      className="px-2 py-2 rounded flex items-center gap-2 font-semibold text-red-600 hover:bg-red-500/20"
+                    >
+                      <FiLogOut /> Logout
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           ) : (
             <Link
@@ -135,102 +165,116 @@ const Navbar = () => {
           )}
         </div>
 
-        {/* Mobile Controls */}
         <div className="md:hidden flex items-center gap-2">
           <button
             onClick={toggleTheme}
             className="p-2 rounded-full bg-secondary border-2 border-primary text-text"
-            aria-label="Toggle theme"
           >
             {theme === "light" ? <BsMoonStarsFill size={20} /> : <FiSun size={20} />}
           </button>
 
-          {loading ? (
-            <div className="w-10 h-10">
-              <Loading size={40} />
-            </div>
-          ) : user && (
+          {/* Mobile Profile */}
+          {!loading && user && (
             <div className="relative">
               <img
                 src={user.photoURL || avatarFallback}
-                alt={user.displayName || "User"}
                 onError={(e) => (e.currentTarget.src = avatarFallback)}
-                className="w-10 h-10 rounded-full cursor-pointer object-cover border-2 border-primary"
-                onClick={toggleProfileMenu}
+                alt="User"
+                className="w-10 h-10 rounded-full cursor-pointer border-2 border-primary object-cover"
+                onClick={() => setProfileClickOpen(!profileClickOpen)}
               />
-              {profileMenuOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-secondary rounded-lg shadow-lg py-2 flex flex-col gap-2 z-50">
-                  <Link
-                    to="/create-event"
-                    className="px-4 py-2 hover:bg-primary/20 rounded transition"
-                    onClick={() => setProfileMenuOpen(false)}
+
+              <AnimatePresence>
+                {profileClickOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="absolute -right-13 top-12 mt-2 w-56 bg-secondary rounded-lg shadow-lg p-3 z-99999 flex flex-col gap-2 text-text"
                   >
-                    Create Event
-                  </Link>
-                  <Link
-                    to="/manage-event"
-                    className="px-4 py-2 hover:bg-primary/20 rounded transition"
-                    onClick={() => setProfileMenuOpen(false)}
-                  >
-                    Manage Events
-                  </Link>
-                  <Link
-                    to="/joined-event"
-                    className="px-4 py-2 hover:bg-primary/20 rounded transition"
-                    onClick={() => setProfileMenuOpen(false)}
-                  >
-                    Joined Events
-                  </Link>
-                  <button
-                    onClick={handleLogout}
-                    className="px-4 py-2 hover:bg-red-500/20 text-red-600 rounded transition"
-                  >
-                    Logout
-                  </button>
-                </div>
-              )}
+                    <div className="border-b border-primary/20 pb-2">
+                      <p className="font-semibold">{user.displayName}</p>
+                      <p className="text-xs opacity-80">{user.email}</p>
+                    </div>
+
+                    <Link
+                      to="/create-event"
+                      onClick={() => setProfileClickOpen(false)}
+                      className="px-2 py-2 rounded hover:bg-primary/20 transition"
+                    >
+                      Create Event
+                    </Link>
+                    <Link
+                      to="/manage-event"
+                      onClick={() => setProfileClickOpen(false)}
+                      className="px-2 py-2 rounded hover:bg-primary/20 transition"
+                    >
+                      Manage Events
+                    </Link>
+                    <Link
+                      to="/joined-event"
+                      onClick={() => setProfileClickOpen(false)}
+                      className="px-2 py-2 rounded hover:bg-primary/20 transition"
+                    >
+                      Joined Events
+                    </Link>
+
+                    <button
+                      onClick={handleLogout}
+                      className="px-2 py-2 rounded flex items-center gap-2 text-red-600 hover:bg-red-500/20"
+                    >
+                      <FiLogOut /> Logout
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           )}
 
           <button
             onClick={toggleMobileMenu}
             className="p-2 rounded-lg bg-secondary border-2 border-primary"
-            aria-label="Toggle mobile menu"
           >
             {mobileMenuOpen ? <FiX size={22} /> : <FiMenu size={22} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {mobileMenuOpen && (
-        <div className="md:hidden bg-background w-full px-4 py-4 flex flex-col gap-4">
-          {links.map((item) => (
-            <NavLink
-              key={item.id}
-              to={item.link}
-              className={({ isActive }) =>
-                `px-2 py-2 rounded transition hover:bg-primary/20 ${
-                  isActive ? "text-text font-semibold" : ""
-                }`
-              }
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              {item.name}
-            </NavLink>
-          ))}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="md:hidden bg-background w-full px-4 py-4 flex flex-col gap-4 overflow-hidden"
+          >
+            {links.map((item) => (
+              <NavLink
+                key={item.id}
+                to={item.link}
+                onClick={() => setMobileMenuOpen(false)}
+                className={({ isActive }) =>
+                  `px-2 py-2 rounded transition hover:bg-primary/20 ${
+                    isActive ? activeClass : "text-text"
+                  }`
+                }
+              >
+                {item.name}
+              </NavLink>
+            ))}
 
-          {!loading && !user && (
-            <Link
-              to="/login"
-              className="mt-2 px-4 py-2 rounded-xl border-2 border-primary bg-secondary text-text font-semibold"
-              onClick={() => setMobileMenuOpen(false)}
-            >
-              Login
-            </Link>
-          )}
-        </div>
-      )}
+            {!loading && !user && (
+              <Link
+                to="/login"
+                className="mt-2 px-4 py-2 rounded-xl border-2 border-primary bg-secondary text-text font-semibold"
+                onClick={() => setMobileMenuOpen(false)}
+              >
+                Login
+              </Link>
+            )}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </header>
   );
 };

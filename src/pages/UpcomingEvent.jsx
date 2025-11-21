@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Loading from "../components/Loading";
 import { Link } from "react-router";
 import { FaCalendarAlt, FaSearch } from "react-icons/fa";
+import { motion } from "motion/react";
 
 const UpcomingEvent = () => {
   const [events, setEvents] = useState([]);
@@ -9,13 +10,7 @@ const UpcomingEvent = () => {
   const [search, setSearch] = useState("");
   const [typeFilter, setTypeFilter] = useState("");
 
-  const types = [
-    "Cleanup",
-    "Plantation",
-    "Donation",
-    "Food Drive",
-    "Recycling",
-  ];
+  const types = ["Cleanup", "Plantation", "Donation", "Food Drive", "Recycling"];
 
   useEffect(() => {
     const fetchEvents = async () => {
@@ -63,12 +58,17 @@ const UpcomingEvent = () => {
   return (
     <section className="bg-background min-h-screen">
       <div className="max-w-[1296px] mx-auto pt-20 px-4">
-        <h1
+        <motion.h1
           className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary text-center"
           style={{ fontFamily: "Inter, system-ui, sans-serif" }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.5 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           Upcoming Community Events
-        </h1>
+        </motion.h1>
+
         <div className="flex justify-end my-6 w-full gap-4">
           <div className="flex items-center border border-accent rounded-lg px-3 py-2 bg-background shadow-sm focus-within:ring-2 focus-within:ring-primary flex-1 max-w-[400px]">
             <FaSearch className="text-text/80 mr-2" />
@@ -88,9 +88,7 @@ const UpcomingEvent = () => {
           >
             <option value="">All Types</option>
             {types.map((t) => (
-              <option key={t} value={t}>
-                {t}
-              </option>
+              <option key={t} value={t}>{t}</option>
             ))}
           </select>
         </div>
@@ -106,9 +104,7 @@ const UpcomingEvent = () => {
             <div className="w-32 h-32 mx-auto mb-8 bg-linear-to-r from-accent via-secondary to-primary rounded-full flex items-center justify-center">
               <FaCalendarAlt className="text-5xl text-text/90" />
             </div>
-            <h2 className="text-3xl font-bold text-text/80 mb-4">
-              No Upcoming Events
-            </h2>
+            <h2 className="text-3xl font-bold text-text/80 mb-4">No Upcoming Events</h2>
             <p className="text-lg text-text/70 max-w-md mx-auto">
               Start creating impactful community events and make a difference!
             </p>
@@ -116,9 +112,14 @@ const UpcomingEvent = () => {
         )}
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12 pb-20">
-          {events.map((event) => (
-            <div
+          {events.map((event, index) => (
+            <motion.div
               key={event._id}
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ duration: 0.6, delay: index * 0.05, ease: "easeOut" }}
+              whileHover={{ scale: 1.02 }}
               className="rounded-2xl bg-secondary/10 border border-accent/20 shadow-xl hover:shadow-2xl hover:shadow-accent/30 overflow-hidden transition-all duration-300 flex flex-col"
             >
               <img
@@ -134,7 +135,6 @@ const UpcomingEvent = () => {
 
                 <div className="flex justify-between items-center mt-3">
                   <p className="text-sm text-text/60">{event.location}</p>
-
                   <span className="bg-primary/15 px-3 py-1 text-primary text-xs font-semibold rounded-full">
                     {event.type}
                   </span>
@@ -153,7 +153,7 @@ const UpcomingEvent = () => {
                   </Link>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </div>

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
 import Loading from "../components/Loading";
+import { motion } from "motion/react";
 
 const eventTypes = ["Cleanup", "Plantation", "Donation", "Food Drive", "Recycling"];
 
@@ -27,22 +28,13 @@ const CreateEvent = () => {
 
   const validateForm = () => {
     const newErrors = {};
-
     if (!formData.title.trim()) newErrors.title = "Title is required";
     else if (formData.title.length < 5) newErrors.title = "Title must be at least 5 characters";
-
     if (!formData.description.trim()) newErrors.description = "Description is required";
     else if (formData.description.length < 250)
       newErrors.description = "Description must be at least 250 characters";
-
     if (!formData.type) newErrors.type = "Please select an event type";
-
-    // if (!formData.thumbnail.trim()) newErrors.thumbnail = "Thumbnail URL is required";
-    // else if (!/^https?:\/\/.+\.(jpg|jpeg|png|webp)$/i.test(formData.thumbnail))
-    //   newErrors.thumbnail = "Enter a valid image URL";
-
     if (!formData.location.trim()) newErrors.location = "Location is required";
-
     if (!eventDate) newErrors.eventDate = "Event date is required";
     else if (eventDate < new Date()) newErrors.eventDate = "Event date must be in the future";
 
@@ -55,18 +47,14 @@ const CreateEvent = () => {
     if (!validateForm()) return;
 
     const payload = { ...formData, eventDate, userId: user?.uid || "" };
-
     try {
       setLoading(true);
-
       const res = await fetch("http://localhost:3000/event", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
       });
-
       const data = await res.json();
-
       if (data.success) {
         toast.success("Event created successfully!");
         navigate("/upcoming-events");
@@ -80,52 +68,88 @@ const CreateEvent = () => {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="flex justify-center items-center">
-        <Loading />
-      </div>
-    );
-  }
+  if (loading) return <div className="flex justify-center items-center"><Loading /></div>;
 
   return (
     <section className="bg-background min-h-screen p-5 flex justify-center">
-      <div className="max-w-[660px] w-full mt-20 bg-primary/10 p-8 rounded-2xl drop-shadow-lg shadow-lg">
-        <h1 className="text-3xl font-semibold text-text mb-2">Create Event</h1>
-        <p className="text-primary mb-6 font-semibold">
+      <motion.div
+        className="max-w-[660px] w-full mt-20 bg-primary/10 p-8 rounded-2xl drop-shadow-lg shadow-lg"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
+      >
+        <motion.h1
+          className="text-3xl font-semibold text-text mb-2"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ duration: 0.5 }}
+        >
+          Create Event
+        </motion.h1>
+        <motion.p
+          className="text-primary mb-6 font-semibold"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+        >
           Let's make the world better together!
-        </p>
+        </motion.p>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Event Title */}
-          <div className="flex flex-col">
-            <label className="text-text font-medium mb-1">Event Title</label>
-            <input
-              type="text"
-              name="title"
-              placeholder="Roadside Tree Plantation"
-              value={formData.title}
-              onChange={handleChange}
-              className="w-full p-3 bg-background border border-primary text-text rounded-lg outline-primary placeholder:text-text/50 transition"
-            />
-            {errors.title && <p className="text-red-500 text-sm">{errors.title}</p>}
-          </div>
+        <motion.form
+          onSubmit={handleSubmit}
+          className="space-y-5"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ staggerChildren: 0.1, duration: 0.5 }}
+        >
+          {[
+            { label: "Event Title", type: "text", name: "title", placeholder: "Roadside Tree Plantation" },
+            { label: "Description", type: "textarea", name: "description", placeholder: "Write details about the event..." },
+            { label: "Thumbnail URL", type: "text", name: "thumbnail", placeholder: "https://example.com/image.jpg" },
+            { label: "Location", type: "text", name: "location", placeholder: "Dhaka, Bangladesh" },
+          ].map((field, idx) => (
+            <motion.div
+              key={idx}
+              className="flex flex-col"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ duration: 0.5, delay: idx * 0.05 }}
+            >
+              <label className="text-text font-medium mb-1">{field.label}</label>
+              {field.type === "textarea" ? (
+                <textarea
+                  name={field.name}
+                  placeholder={field.placeholder}
+                  value={formData[field.name]}
+                  onChange={handleChange}
+                  className="w-full p-3 bg-background text-text border border-primary rounded-lg outline-primary placeholder:text-text/50 h-28 transition resize-none"
+                />
+              ) : (
+                <input
+                  type={field.type}
+                  name={field.name}
+                  placeholder={field.placeholder}
+                  value={formData[field.name]}
+                  onChange={handleChange}
+                  className="w-full p-3 bg-background border border-primary text-text rounded-lg outline-primary placeholder:text-text/50 transition"
+                />
+              )}
+              {errors[field.name] && <p className="text-red-500 text-sm">{errors[field.name]}</p>}
+            </motion.div>
+          ))}
 
-          {/* Description */}
-          <div className="flex flex-col">
-            <label className="text-text font-medium mb-1">Description</label>
-            <textarea
-              name="description"
-              placeholder="Write details about the event..."
-              value={formData.description}
-              onChange={handleChange}
-              className="w-full p-3 bg-background text-text border border-primary rounded-lg outline-primary placeholder:text-text/50 h-28 transition resize-none"
-            />
-            {errors.description && <p className="text-red-500 text-sm">{errors.description}</p>}
-          </div>
-
-          {/* Event Type */}
-          <div className="flex flex-col">
+          <motion.div
+            className="flex flex-col"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+          >
             <label className="text-text font-medium mb-1">Event Type</label>
             <select
               name="type"
@@ -139,38 +163,15 @@ const CreateEvent = () => {
               ))}
             </select>
             {errors.type && <p className="text-red-500 text-sm">{errors.type}</p>}
-          </div>
+          </motion.div>
 
-          {/* Thumbnail URL */}
-          <div className="flex flex-col">
-            <label className="text-text font-medium mb-1">Thumbnail URL</label>
-            <input
-              type="text"
-              name="thumbnail"
-              placeholder="https://example.com/image.jpg"
-              value={formData.thumbnail}
-              onChange={handleChange}
-              className="w-full p-3 bg-background border text-text border-primary rounded-lg outline-primary placeholder:text-text/50 transition"
-            />
-            {errors.thumbnail && <p className="text-red-500 text-sm">{errors.thumbnail}</p>}
-          </div>
-
-          {/* Location */}
-          <div className="flex flex-col">
-            <label className="text-text font-medium mb-1">Location</label>
-            <input
-              type="text"
-              name="location"
-              placeholder="Dhaka, Bangladesh"
-              value={formData.location}
-              onChange={handleChange}
-              className="w-full p-3 bg-background border border-primary text-text rounded-lg outline-primary placeholder:text-text/50 transition"
-            />
-            {errors.location && <p className="text-red-500 text-sm">{errors.location}</p>}
-          </div>
-
-          {/* Event Date */}
-          <div className="flex flex-col">
+          <motion.div
+            className="flex flex-col"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+          >
             <label className="text-text font-medium mb-1">Event Date</label>
             <DatePicker
               selected={eventDate}
@@ -181,18 +182,21 @@ const CreateEvent = () => {
               dateFormat="MMMM d, yyyy"
             />
             {errors.eventDate && <p className="text-red-500 text-sm">{errors.eventDate}</p>}
-          </div>
+          </motion.div>
 
-          {/* Submit */}
-          <button
+          <motion.button
             type="submit"
             disabled={loading}
             className="w-full p-3 bg-primary text-text font-semibold rounded-lg hover:bg-primary/80 transition"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
           >
             Create Event
-          </button>
-        </form>
-      </div>
+          </motion.button>
+        </motion.form>
+      </motion.div>
     </section>
   );
 };

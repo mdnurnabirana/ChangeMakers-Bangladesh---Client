@@ -6,6 +6,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
+import { motion } from "motion/react";
 
 const Banner = () => {
   const slides = [
@@ -47,14 +48,20 @@ const Banner = () => {
               <div className="absolute inset-0 bg-black/45" />
 
               <div className="relative z-10 flex h-full items-center justify-center px-5 text-center">
-                <div className="max-w-4xl">
+                <motion.div
+                  initial={{ opacity: 0, y: 40 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.5 }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  className="max-w-4xl"
+                >
                   <h1
                     className="font-bold tracking-tight text-white drop-shadow-xl
                                text-3xl xs:text-4xl 
                                sm:text-5xl 
                                lg:text-6xl 
                                leading-snug sm:leading-tight"
-                    style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
+                    style={{ fontFamily: "Inter, system-ui, sans-serif" }}
                   >
                     {slide.title}
                   </h1>
@@ -63,7 +70,7 @@ const Banner = () => {
                     className="mx-auto mt-5 max-w-2xl text-base 
                                xs:text-md sm:text-lg lg:text-xl 
                                font-medium text-white/90 drop-shadow-md"
-                    style={{ fontFamily: 'Inter, system-ui, sans-serif' }}
+                    style={{ fontFamily: "Inter, system-ui, sans-serif" }}
                   >
                     {slide.desc}
                   </p>
@@ -80,14 +87,13 @@ const Banner = () => {
                       Join Our Mission
                     </button>
                   </div>
-                </div>
+                </motion.div>
               </div>
             </div>
           </SwiperSlide>
         ))}
       </Swiper>
 
-      {/* Clean, minimal pagination */}
       <style jsx global>{`
         .swiper-pagination-bullet {
           background: rgba(255, 255, 255, 0.6);

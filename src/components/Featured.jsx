@@ -1,5 +1,6 @@
 import React from 'react';
 import { FaHandsHelping, FaUsers, FaGlobeAsia, FaMapMarkerAlt } from "react-icons/fa";
+import { motion } from "motion/react";
 
 const Featured = () => {
   const features = [
@@ -28,18 +29,45 @@ const Featured = () => {
   return (
     <section className="w-full pt-10 sm:pt-20 px-4 bg-background text-text">
       <div className="max-w-6xl mx-auto text-center">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-primary">
-          What You Can Do with <span className="text-accent">ChangeMakers</span>
-        </h2>
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.5 }}
+          transition={{ staggerChildren: 0.2 }}
+        >
+          <motion.h2
+            variants={{ hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0 } }}
+            transition={{ duration: 0.6, type: "spring", stiffness: 60 }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold mb-4 text-primary"
+          >
+            What You Can Do with <span className="text-accent">ChangeMakers</span>
+          </motion.h2>
 
-        <p className="text-lg max-w-2xl mx-auto text-text/80">
-          ChangeMakers enables communities to take bold steps by turning meaningful ideas into real-world action — simple, accessible, and powerful.
-        </p>
+          <motion.p
+            variants={{ hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } }}
+            transition={{ duration: 0.6, delay: 0.1, type: "spring", stiffness: 60 }}
+            className="text-lg max-w-2xl mx-auto text-text/80"
+          >
+            ChangeMakers enables communities to take bold steps by turning meaningful ideas into real-world action — simple, accessible, and powerful.
+          </motion.p>
+        </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-14">
+        <motion.div
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-14"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.3 }}
+          transition={{ staggerChildren: 0.15 }}
+        >
           {features.map((feature, i) => (
-            <div
+            <motion.div
               key={i}
+              variants={{
+                hidden: { opacity: 0, y: 40, scale: 0.95 },
+                visible: { opacity: 1, y: 0, scale: 1 }
+              }}
+              transition={{ duration: 0.6, type: "spring", stiffness: 70 }}
+              whileHover={{ scale: 1.04 }}
               className="p-8 rounded-2xl shadow-lg bg-white/15 backdrop-blur border border-white/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="text-primary mb-4 flex justify-center">
@@ -47,9 +75,9 @@ const Featured = () => {
               </div>
               <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
               <p className="text-text">{feature.desc}</p>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

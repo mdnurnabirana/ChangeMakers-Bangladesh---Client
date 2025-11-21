@@ -3,6 +3,7 @@ import { AuthContext } from "../provider/AuthProvider";
 import Loading from "../components/Loading";
 import toast from "react-hot-toast";
 import { FaCalendarAlt } from "react-icons/fa";
+import { motion } from "motion/react";
 
 const JoinedEvent = () => {
   const { user } = useContext(AuthContext);
@@ -48,17 +49,29 @@ const JoinedEvent = () => {
 
   return (
     <section className="bg-background min-h-screen pt-24 px-4">
-      <div className="max-w-7xl mx-auto mb-8 text-center">
+      <motion.div
+        className="max-w-7xl mx-auto mb-8 text-center"
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: false, amount: 0.5 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <h1 className="text-4xl sm:text-5xl font-extrabold text-primary mb-4">
           Joined Events
         </h1>
         <p className="text-lg text-text/80 max-w-2xl mx-auto mb-4">
           Make Bangladesh Better Together
         </p>
-      </div>
+      </motion.div>
 
       {events.length === 0 && (
-        <div className="flex justify-center items-center px-4">
+        <motion.div
+          className="flex justify-center items-center px-4"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.5 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           <div className="text-center py-20 bg-background/90 rounded-3xl shadow-lg max-w-[1296px] w-full shadow-primary/20">
             <div className="w-32 h-32 mx-auto mb-8 bg-linear-to-r from-accent via-secondary to-primary rounded-full flex items-center justify-center">
               <FaCalendarAlt className="text-5xl text-text/90" />
@@ -71,14 +84,19 @@ const JoinedEvent = () => {
               events and get involved!
             </p>
           </div>
-        </div>
+        </motion.div>
       )}
 
       {events.length > 0 && (
         <div className="max-w-[1296px] mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {events.map((event) => (
-            <div
+          {events.map((event, index) => (
+            <motion.div
               key={event._id}
+              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ duration: 0.6, delay: index * 0.05, ease: "easeOut" }}
+              whileHover={{ scale: 1.02 }}
               className="bg-secondary/10 rounded-2xl p-4 shadow hover:shadow-lg transition"
             >
               <img
@@ -99,7 +117,7 @@ const JoinedEvent = () => {
                 <strong>Date:</strong>{" "}
                 {new Date(event.eventDate).toLocaleDateString()}
               </p>
-            </div>
+            </motion.div>
           ))}
         </div>
       )}

@@ -10,6 +10,7 @@ import UpcomingEvent from "../pages/UpcomingEvent";
 import EventDetail from "../pages/EventDetail";
 import Home from "../pages/Home";
 import PrivateRoute from "../privateRoute/PrivateRoute";
+import About from "../pages/About";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,10 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "/about",
+        element: <About />
+      }
     ],
   },
 ]);

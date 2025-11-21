@@ -15,6 +15,7 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../provider/AuthProvider";
 import Loading from "../components/Loading";
 import { MdCancel } from "react-icons/md";
+import { motion } from "motion/react";
 
 const eventTypes = [
   "Cleanup",
@@ -48,7 +49,9 @@ const ManageEvent = () => {
     const fetchEvents = async () => {
       setLoading(true);
       try {
-        const res = await fetch(`http://localhost:3000/manage-event/${user.uid}`);
+        const res = await fetch(
+          `http://localhost:3000/manage-event/${user.uid}`
+        );
         const data = await res.json();
         if (data.success) setEvents(data.data || []);
         else toast.error(data.message || "Failed to load events");
@@ -70,7 +73,8 @@ const ManageEvent = () => {
     if (!formData.description || formData.description.trim().length < 250)
       newErrors.description = "Description must be at least 250 characters";
     if (!formData.type) newErrors.type = "Event type is required";
-    if (!formData.thumbnail.trim()) newErrors.thumbnail = "Thumbnail URL is required";
+    if (!formData.thumbnail.trim())
+      newErrors.thumbnail = "Thumbnail URL is required";
     if (!formData.location.trim()) newErrors.location = "Location is required";
     if (!eventDate || eventDate <= new Date())
       newErrors.eventDate = "Date must be in the future";
@@ -112,15 +116,18 @@ const ManageEvent = () => {
 
     setUpdating(true);
     try {
-      const res = await fetch(`http://localhost:3000/manage-event/${currentEvent._id}`, {
-        method: "PUT",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          eventDate: eventDate.toISOString(),
-          userId: user.uid, 
-        }),
-      });
+      const res = await fetch(
+        `http://localhost:3000/manage-event/${currentEvent._id}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            ...formData,
+            eventDate: eventDate.toISOString(),
+            userId: user.uid,
+          }),
+        }
+      );
       const data = await res.json();
       if (data.success) {
         toast.success("Event updated successfully!");
@@ -174,48 +181,85 @@ const ManageEvent = () => {
   return (
     <section className="bg-background/80 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-12">
+        <motion.div
+          className="text-center mb-12"
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, amount: 0.5 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+        >
           <h1 className="text-4xl sm:text-5xl font-extrabold text-primary mb-4">
             Manage Your Events
           </h1>
           <p className="text-lg text-text/80 max-w-2xl mx-auto">
             Update or remove your community events with ease
           </p>
-        </div>
+        </motion.div>
 
         {loading ? (
           <div className="flex flex-col items-center justify-center bg-background/80">
-            <Loading/>
+            <Loading />
             <p className="mt-6 text-lg text-text animate-pulse">
               Loading your events...
             </p>
           </div>
         ) : events.length === 0 ? (
-          <div className="text-center py-20 bg-background/90 rounded-3xl shadow-lg">
+          <motion.div
+            className="text-center py-20 bg-background/90 rounded-3xl shadow-lg"
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: false, amount: 0.3 }}
+            transition={{ duration: 0.6 }}
+          >
             <div className="w-32 h-32 mx-auto mb-8 bg-linear-to-r from-accent via-secondary to-primary rounded-full flex items-center justify-center">
               <FaCalendarAlt className="text-5xl text-text/90" />
             </div>
-            <h2 className="text-3xl font-bold text-text/80 mb-4">No Events Yet</h2>
+            <h2 className="text-3xl font-bold text-text/80 mb-4">
+              No Events Yet
+            </h2>
             <p className="text-lg text-text/70 max-w-md mx-auto">
               Start creating impactful community events and make a difference!
             </p>
-          </div>
+          </motion.div>
         ) : (
           <>
-            <div className="hidden lg:block bg-background rounded-2xl shadow-xl overflow-hidden">
+            <motion.div
+              className="hidden lg:block bg-background rounded-2xl shadow-xl overflow-hidden"
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.3 }}
+              transition={{ duration: 0.6 }}
+            >
               <table className="w-full">
                 <thead className="bg-linear-to-r from-accent via-secondary to-primary text-text">
                   <tr>
-                    <th className="px-6 py-5 text-left text-sm font-semibold uppercase tracking-wider">Event</th>
-                    <th className="px-6 py-5 text-left text-sm font-semibold uppercase tracking-wider">Type</th>
-                    <th className="px-6 py-5 text-left text-sm font-semibold uppercase tracking-wider">Date</th>
-                    <th className="px-6 py-5 text-left text-sm font-semibold uppercase tracking-wider">Location</th>
-                    <th className="px-6 py-5 text-center text-sm font-semibold uppercase tracking-wider">Actions</th>
+                    <th className="px-6 py-5 text-left text-sm font-semibold uppercase tracking-wider">
+                      Event
+                    </th>
+                    <th className="px-6 py-5 text-left text-sm font-semibold uppercase tracking-wider">
+                      Type
+                    </th>
+                    <th className="px-6 py-5 text-left text-sm font-semibold uppercase tracking-wider">
+                      Date
+                    </th>
+                    <th className="px-6 py-5 text-left text-sm font-semibold uppercase tracking-wider">
+                      Location
+                    </th>
+                    <th className="px-6 py-5 text-center text-sm font-semibold uppercase tracking-wider">
+                      Actions
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-gray-200">
-                  {events.map((event) => (
-                    <tr key={event._id} className="hover:bg-secondary/20 transition">
+                  {events.map((event, index) => (
+                    <motion.tr
+                      key={event._id}
+                      className="hover:bg-secondary/20 transition"
+                      initial={{ opacity: 0, x: -40 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: false, amount: 0.3 }}
+                      transition={{ duration: 0.5, delay: index * 0.05 }}
+                    >
                       <td className="px-6 py-5">
                         <div className="flex items-center gap-4">
                           <img
@@ -224,7 +268,9 @@ const ManageEvent = () => {
                             className="w-16 h-16 rounded-xl object-cover border-2 border-primary"
                           />
                           <div>
-                            <div className="font-bold text-text/80">{event.title}</div>
+                            <div className="font-bold text-text/80">
+                              {event.title}
+                            </div>
                           </div>
                         </div>
                       </td>
@@ -236,11 +282,14 @@ const ManageEvent = () => {
                       <td className="px-6 py-5 text-text/80">
                         <div className="flex items-center gap-2">
                           <FaCalendarAlt className="text-primary" />
-                          {new Date(event.eventDate).toLocaleDateString("en-US", {
-                            year: "numeric",
-                            month: "long",
-                            day: "numeric",
-                          })}
+                          {new Date(event.eventDate).toLocaleDateString(
+                            "en-US",
+                            {
+                              year: "numeric",
+                              month: "long",
+                              day: "numeric",
+                            }
+                          )}
                         </div>
                       </td>
                       <td className="px-6 py-5 text-text/80">
@@ -267,17 +316,22 @@ const ManageEvent = () => {
                           </button>
                         </div>
                       </td>
-                    </tr>
+                    </motion.tr>
                   ))}
                 </tbody>
               </table>
-            </div>
+            </motion.div>
 
             <div className="lg:hidden grid gap-6 sm:grid-cols-2">
-              {events.map((event) => (
-                <div
+              {events.map((event, index) => (
+                <motion.div
                   key={event._id}
                   className="bg-background rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition"
+                  initial={{ opacity: 0, y: 30, scale: 0.95 }}
+                  whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                  viewport={{ once: false, amount: 0.3 }}
+                  transition={{ duration: 0.6, delay: index * 0.05 }}
+                  whileHover={{ scale: 1.02 }}
                 >
                   <div className="aspect-video relative">
                     <img
@@ -299,11 +353,14 @@ const ManageEvent = () => {
                       <div className="flex items-center gap-2">
                         <FaCalendarAlt className="text-text/70" />
                         <span>
-                          {new Date(event.eventDate).toLocaleDateString("en-US", {
-                            month: "short",
-                            day: "numeric",
-                            year: "numeric",
-                          })}
+                          {new Date(event.eventDate).toLocaleDateString(
+                            "en-US",
+                            {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                            }
+                          )}
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
@@ -326,15 +383,19 @@ const ManageEvent = () => {
                       </button>
                     </div>
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
           </>
         )}
 
-        <dialog
+        <motion.dialog
           id="updateModal"
           className="modal"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
+          transition={{ duration: 0.3 }}
         >
           <div className="modal-box p-0 max-w-4xl w-full bg-background rounded-3xl shadow-2xl overflow-hidden fixed inset-0 m-auto max-h-[95vh] flex flex-col">
             <div className="bg-linear-to-r from-primary via-secondary to-accent text-text p-6">
@@ -342,7 +403,9 @@ const ManageEvent = () => {
                 <FaEdit className="text-3xl" />
                 Update Event Details
               </h3>
-              <p className="mt-2 opacity-90">Make changes and save your updated event</p>
+              <p className="mt-2 opacity-90">
+                Make changes and save your updated event
+              </p>
             </div>
 
             <button
@@ -367,7 +430,9 @@ const ManageEvent = () => {
                     className="w-full px-5 py-4 border border-primary/80 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/50 outline-none transition text-text/70"
                     placeholder="Enter event title"
                   />
-                  {errors.title && <p className="text-red-500 text-sm mt-2">{errors.title}</p>}
+                  {errors.title && (
+                    <p className="text-red-500 text-sm mt-2">{errors.title}</p>
+                  )}
                 </div>
 
                 <div>
@@ -386,7 +451,11 @@ const ManageEvent = () => {
                   <div className="text-right text-sm text-gray-500 mt-1">
                     {formData.description.length}/250+ characters
                   </div>
-                  {errors.description && <p className="text-red-500 text-sm mt-1">{errors.description}</p>}
+                  {errors.description && (
+                    <p className="text-red-500 text-sm mt-1">
+                      {errors.description}
+                    </p>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -401,12 +470,25 @@ const ManageEvent = () => {
                       onChange={handleChange}
                       className="w-full px-5 py-4 border border-primary/80 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/50 outline-none transition text-text/70"
                     >
-                      <option className="bg-background/80 text-text/70" value="">Choose event type</option>
+                      <option
+                        className="bg-background/80 text-text/70"
+                        value=""
+                      >
+                        Choose event type
+                      </option>
                       {eventTypes.map((t) => (
-                        <option className="bg-background/80 text-text/70" key={t} value={t}>{t}</option>
+                        <option
+                          className="bg-background/80 text-text/70"
+                          key={t}
+                          value={t}
+                        >
+                          {t}
+                        </option>
                       ))}
                     </select>
-                    {errors.type && <p className="text-red-500 text-sm mt-2">{errors.type}</p>}
+                    {errors.type && (
+                      <p className="text-red-500 text-sm mt-2">{errors.type}</p>
+                    )}
                   </div>
 
                   <div>
@@ -422,7 +504,11 @@ const ManageEvent = () => {
                       dateFormat="MMMM d, yyyy"
                       placeholderText="Select future date"
                     />
-                    {errors.eventDate && <p className="text-red-500 text-sm mt-2">{errors.eventDate}</p>}
+                    {errors.eventDate && (
+                      <p className="text-red-500 text-sm mt-2">
+                        {errors.eventDate}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -440,7 +526,11 @@ const ManageEvent = () => {
                       className="w-full px-5 py-4 border border-primary/80 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/50 outline-none transition text-text/70"
                       placeholder="https://example.com/image.jpg"
                     />
-                    {errors.thumbnail && <p className="text-red-500 text-sm mt-2">{errors.thumbnail}</p>}
+                    {errors.thumbnail && (
+                      <p className="text-red-500 text-sm mt-2">
+                        {errors.thumbnail}
+                      </p>
+                    )}
                   </div>
 
                   <div>
@@ -456,7 +546,11 @@ const ManageEvent = () => {
                       className="w-full px-5 py-4 border border-primary/80 rounded-xl focus:border-primary focus:ring-2 focus:ring-primary/50 outline-none transition text-text/70"
                       placeholder="City, State or Venue"
                     />
-                    {errors.location && <p className="text-red-500 text-sm mt-2">{errors.location}</p>}
+                    {errors.location && (
+                      <p className="text-red-500 text-sm mt-2">
+                        {errors.location}
+                      </p>
+                    )}
                   </div>
                 </div>
 
@@ -475,9 +569,24 @@ const ManageEvent = () => {
                   >
                     {updating ? (
                       <>
-                        <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"/>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z"/>
+                        <svg
+                          className="animate-spin h-5 w-5"
+                          viewBox="0 0 24 24"
+                        >
+                          <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            strokeWidth="4"
+                            fill="none"
+                          />
+                          <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8v8z"
+                          />
                         </svg>
                         Updating...
                       </>
@@ -493,7 +602,7 @@ const ManageEvent = () => {
           <form method="dialog" className="modal-backdrop">
             <button onClick={closeModal}>close</button>
           </form>
-        </dialog>
+        </motion.dialog>
       </div>
     </section>
   );
