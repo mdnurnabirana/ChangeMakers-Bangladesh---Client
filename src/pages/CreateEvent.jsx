@@ -37,9 +37,9 @@ const CreateEvent = () => {
 
     if (!formData.type) newErrors.type = "Please select an event type";
 
-    if (!formData.thumbnail.trim()) newErrors.thumbnail = "Thumbnail URL is required";
-    else if (!/^https?:\/\/.+\.(jpg|jpeg|png|webp)$/i.test(formData.thumbnail))
-      newErrors.thumbnail = "Enter a valid image URL";
+    // if (!formData.thumbnail.trim()) newErrors.thumbnail = "Thumbnail URL is required";
+    // else if (!/^https?:\/\/.+\.(jpg|jpeg|png|webp)$/i.test(formData.thumbnail))
+    //   newErrors.thumbnail = "Enter a valid image URL";
 
     if (!formData.location.trim()) newErrors.location = "Location is required";
 

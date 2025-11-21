@@ -12,15 +12,15 @@ const Register = () => {
   const navigate = useNavigate();
 
   // Validate Image URL
-  const isValidUrl = (url) => {
-    if (!url) return true;
-    try {
-      new URL(url);
-      return /\.(jpg|jpeg|png|gif|bmp|webp)$/i.test(url);
-    } catch {
-      return false;
-    }
-  };
+  // const isValidUrl = (url) => {
+  //   if (!url) return true;
+  //   try {
+  //     new URL(url);
+  //     return /\.(jpg|jpeg|png|gif|bmp|webp)$/i.test(url);
+  //   } catch {
+  //     return false;
+  //   }
+  // };
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -46,18 +46,15 @@ const Register = () => {
       return;
     }
 
-    if (photo && !isValidUrl(photo)) {
-      toast.error("Please provide a valid image URL.");
-      return;
-    }
+    // if (photo && !isValidUrl(photo)) {
+    //   toast.error("Please provide a valid image URL.");
+    //   return;
+    // }
 
-    // Create user in Firebase
     createUser(email, password)
       .then((result) => {
-        // Update profile
         updateUserProfile({ displayName: name, photoURL: photo })
           .then(async () => {
-            // Save user in backend
             try {
               const res = await fetch("http://localhost:3000/user", {
                 method: "POST",
@@ -80,7 +77,6 @@ const Register = () => {
               toast.error("Backend server error.");
             }
 
-            // Logout and redirect
             logOut().then(() => {
               toast.success("Registration successful! Please login.");
               navigate("/login");
@@ -107,7 +103,6 @@ const Register = () => {
       <title>ChangeMakers Bangladesh - Register</title>
 
       <div className="max-w-[1296px] mx-auto min-h-screen flex flex-col justify-center items-center px-4">
-        {/* Logo */}
         <div className="flex flex-col items-center mb-10">
           <img src={logo} className="h-20 mb-3" alt="Logo" />
           <h1 className="text-4xl sm:text-5xl font-bold text-primary">
@@ -115,7 +110,6 @@ const Register = () => {
           </h1>
         </div>
 
-        {/* Form */}
         <form
           onSubmit={handleRegister}
           className="bg-secondary w-full max-w-md p-8 rounded-2xl shadow-lg flex flex-col gap-6 border-2 border-primary text-text"
