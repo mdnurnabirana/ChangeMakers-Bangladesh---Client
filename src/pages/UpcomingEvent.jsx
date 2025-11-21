@@ -15,7 +15,13 @@ const UpcomingEvent = () => {
         const data = await res.json();
 
         if (data.success) {
-          setEvents(data.data);
+          const today = new Date();
+
+          const upcomingEvents = data.data
+            .filter((event) => new Date(event.eventDate) >= today)
+            .sort((a, b) => new Date(a.eventDate) - new Date(b.eventDate)); 
+
+          setEvents(upcomingEvents);
         }
       } catch (error) {
         console.error("Error fetching events:", error);
