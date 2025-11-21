@@ -45,7 +45,10 @@ const EventDetail = () => {
   }, [id, user]);
 
   const handleJoinEvent = async () => {
-    if (!user) return toast.info("Please log in first to join this event.");
+    if (!user) {
+      toast.error("You must be logged in to join this event!");
+      return;
+    }
     setJoining(true);
     try {
       const response = await fetch(
