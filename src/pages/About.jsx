@@ -13,7 +13,7 @@ const About = () => {
   return (
     <>
       <title>About</title>
-      <section className="bg-background text-text pt-20 pb-28">
+      <section className="bg-background text-text pt-20">
       <div className="max-w-[1296px] mx-auto px-5">
 
         <motion.div

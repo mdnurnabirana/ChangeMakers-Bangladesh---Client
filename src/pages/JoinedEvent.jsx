@@ -58,7 +58,7 @@ const JoinedEvent = () => {
           viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-primary mb-4">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary text-center mb-4">
             Joined Events
           </h1>
           <p className="text-lg text-text/80 max-w-2xl mx-auto mb-4">
@@ -90,7 +90,7 @@ const JoinedEvent = () => {
         )}
 
         {events.length > 0 && (
-          <div className="max-w-[1296px] mx-auto grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="max-w-[1296px] mx-auto grid gap-6 sm:grid-cols-3 lg:grid-cols-4">
             {events.map((event, index) => (
               <motion.div
                 key={event._id}

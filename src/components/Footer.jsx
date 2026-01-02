@@ -43,10 +43,10 @@ const Footer = () => {
               All Events
             </Link>
             <Link
-              to="/profile"
+              to="/about"
               className="hover:text-accent transition-colors duration-200"
             >
-              My Profile
+              About 
             </Link>
           </div>
 

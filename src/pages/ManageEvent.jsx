@@ -193,7 +193,7 @@ const ManageEvent = () => {
             viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <h1 className="text-4xl sm:text-5xl font-extrabold text-primary mb-4">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary text-center mb-4">
               Manage Your Events
             </h1>
             <p className="text-lg text-text/80 max-w-2xl mx-auto">

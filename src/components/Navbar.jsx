@@ -54,7 +54,7 @@ const Navbar = () => {
           </div>
         </Link>
 
-        <ul className="hidden md:flex gap-6 list-none">
+        <ul className="hidden md:flex gap-6 list-none font-medium">
           {links.map((item) => (
             <li key={item.id}>
               <NavLink
@@ -88,6 +88,7 @@ const Navbar = () => {
               {/* Avatar */}
               <img
                 src={user.photoURL || avatarFallback}
+                referrerPolicy="no-referrer"
                 onError={(e) => (e.currentTarget.src = avatarFallback)}
                 alt="User"
                 className="w-10 h-10 rounded-full border-2 border-primary cursor-pointer object-cover"
