@@ -20,10 +20,10 @@ const About = () => {
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.5 }}
           className="text-center mb-12"
         >
-          <h1 className="text-4xl sm:text-5xl font-extrabold text-primary">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary text-center">
             About ChangeMakers
           </h1>
           <p className="text-lg text-text/70 max-w-2xl mx-auto mt-4">
@@ -36,7 +36,7 @@ const About = () => {
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
           >
             <h2 className="text-3xl font-bold mb-4 text-primary">Our Mission</h2>
             <p className="text-text/80 leading-relaxed">
@@ -56,7 +56,7 @@ const About = () => {
             variants={fadeUp}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
             className="bg-primary/10 p-8 rounded-xl border border-primary/30 shadow-lg"
           >
             <h3 className="text-2xl font-semibold mb-3 text-primary">What We Stand For</h3>
@@ -74,7 +74,7 @@ const About = () => {
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.5 }}
           className="mb-20"
         >
           <h2 className="text-3xl font-bold text-center text-primary mb-10">
@@ -85,7 +85,7 @@ const About = () => {
             variants={stagger}
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.3 }}
             className="grid grid-cols-1 md:grid-cols-3 gap-10"
           >
             {[ 
@@ -118,7 +118,7 @@ const About = () => {
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.5 }}
           className="bg-linear-to-br from-primary via-accent to-secondary rounded-2xl p-10 text-background shadow-xl mb-20"
         >
           <h2 className="text-3xl font-bold mb-4">Our Vision</h2>
@@ -137,7 +137,7 @@ const About = () => {
           variants={fadeUp}
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.5 }}
           className="text-center"
         >
           <h2 className="text-3xl font-bold text-primary mb-6">

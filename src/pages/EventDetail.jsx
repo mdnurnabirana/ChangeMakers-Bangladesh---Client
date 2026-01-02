@@ -105,7 +105,7 @@ const EventDetail = () => {
                 style={{ maxHeight: "600px" }}
                 initial={{ opacity: 0, scale: 0.95 }}
                 whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
               />
             </div>
@@ -115,7 +115,7 @@ const EventDetail = () => {
                 className="text-3xl sm:text-4xl font-bold text-primary mb-4"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5 }}
               >
                 {event.title}
@@ -125,7 +125,7 @@ const EventDetail = () => {
                 className="space-y-2 text-text/80"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5, delay: 0.1 }}
               >
                 <p>
@@ -146,7 +146,7 @@ const EventDetail = () => {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
               >
                 <h2 className="text-2xl font-bold text-text mb-2">
@@ -160,7 +160,7 @@ const EventDetail = () => {
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5, delay: 0.25 }}
               >
                 <h2 className="text-2xl font-bold text-text mb-2">
@@ -193,7 +193,7 @@ const EventDetail = () => {
                 }`}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
               >
                 {alreadyJoined ? (

@@ -71,7 +71,7 @@ const UpcomingEvent = () => {
             style={{ fontFamily: "Inter, system-ui, sans-serif" }}
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             Upcoming Community Events
@@ -129,7 +129,7 @@ const UpcomingEvent = () => {
                 key={event._id}
                 initial={{ opacity: 0, y: 30, scale: 0.95 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.3 }}
                 transition={{
                   duration: 0.6,
                   delay: index * 0.05,

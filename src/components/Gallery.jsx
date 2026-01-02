@@ -31,7 +31,7 @@ const Gallery = () => {
           className="text-center mb-6 lg:mb-10"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.8, type: "spring", stiffness: 60 }}
         >
           <h1
@@ -51,7 +51,7 @@ const Gallery = () => {
               key={index}
               initial={{ opacity: 0, y: 50, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
-              viewport={{ once: false, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7, delay: index * 0.08, type: "spring", stiffness: 70 }}
               whileHover={{ scale: 1.03 }}
               className={`

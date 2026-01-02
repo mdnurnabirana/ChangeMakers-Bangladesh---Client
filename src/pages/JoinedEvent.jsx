@@ -55,7 +55,7 @@ const JoinedEvent = () => {
           className="max-w-7xl mx-auto mb-8 text-center"
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.5 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <h1 className="text-4xl sm:text-5xl font-extrabold text-primary mb-4">
@@ -71,7 +71,7 @@ const JoinedEvent = () => {
             className="flex justify-center items-center px-4"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <div className="text-center py-20 bg-background/90 rounded-3xl shadow-lg max-w-[1296px] w-full shadow-primary/20">
@@ -96,7 +96,7 @@ const JoinedEvent = () => {
                 key={event._id}
                 initial={{ opacity: 0, y: 40, scale: 0.95 }}
                 whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.3 }}
                 transition={{
                   duration: 0.6,
                   delay: index * 0.05,

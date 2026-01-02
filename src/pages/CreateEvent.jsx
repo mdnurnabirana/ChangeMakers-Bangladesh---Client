@@ -100,7 +100,7 @@ const CreateEvent = () => {
             className="text-3xl font-semibold text-text mb-2"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5 }}
           >
             Create Event
@@ -109,7 +109,7 @@ const CreateEvent = () => {
             className="text-primary mb-6 font-semibold"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 0.5, delay: 0.1 }}
           >
             Let's make the world better together!
@@ -120,7 +120,7 @@ const CreateEvent = () => {
             className="space-y-5"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
-            viewport={{ once: false, amount: 0.3 }}
+            viewport={{ once: true, amount: 0.3 }}
             transition={{ staggerChildren: 0.1, duration: 0.5 }}
           >
             {[
@@ -154,7 +154,7 @@ const CreateEvent = () => {
                 className="flex flex-col"
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.5, delay: idx * 0.05 }}
               >
                 <label className="text-text font-medium mb-1">
@@ -188,7 +188,7 @@ const CreateEvent = () => {
               className="flex flex-col"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.5, delay: 0.2 }}
             >
               <label className="text-text font-medium mb-1">Event Type</label>
@@ -214,7 +214,7 @@ const CreateEvent = () => {
               className="flex flex-col"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.5, delay: 0.25 }}
             >
               <label className="text-text font-medium mb-1">Event Date</label>

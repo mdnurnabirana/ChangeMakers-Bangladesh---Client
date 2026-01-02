@@ -190,7 +190,7 @@ const ManageEvent = () => {
             className="text-center mb-12"
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <h1 className="text-4xl sm:text-5xl font-extrabold text-primary mb-4">
@@ -213,7 +213,7 @@ const ManageEvent = () => {
               className="text-center py-20 bg-background/90 rounded-3xl shadow-lg"
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: false, amount: 0.3 }}
+              viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.6 }}
             >
               <div className="w-32 h-32 mx-auto mb-8 bg-linear-to-r from-accent via-secondary to-primary rounded-full flex items-center justify-center">
@@ -232,7 +232,7 @@ const ManageEvent = () => {
                 className="hidden lg:block bg-background rounded-2xl shadow-xl overflow-hidden"
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.3 }}
                 transition={{ duration: 0.6 }}
               >
                 <table className="w-full">
@@ -262,7 +262,7 @@ const ManageEvent = () => {
                         className="hover:bg-secondary/20 transition"
                         initial={{ opacity: 0, x: -40 }}
                         whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: false, amount: 0.3 }}
+                        viewport={{ once: true, amount: 0.3 }}
                         transition={{ duration: 0.5, delay: index * 0.05 }}
                       >
                         <td className="px-6 py-5">
@@ -334,7 +334,7 @@ const ManageEvent = () => {
                     className="bg-background rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition"
                     initial={{ opacity: 0, y: 30, scale: 0.95 }}
                     whileInView={{ opacity: 1, y: 0, scale: 1 }}
-                    viewport={{ once: false, amount: 0.3 }}
+                    viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.6, delay: index * 0.05 }}
                     whileHover={{ scale: 1.02 }}
                   >

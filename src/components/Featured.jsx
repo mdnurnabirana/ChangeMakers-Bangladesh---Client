@@ -32,7 +32,7 @@ const Featured = () => {
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.5 }}
+          viewport={{ once: true, amount: 0.5 }}
           transition={{ staggerChildren: 0.2 }}
         >
           <motion.h2
@@ -56,7 +56,7 @@ const Featured = () => {
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 mt-14"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, amount: 0.3 }}
+          viewport={{ once: true, amount: 0.3 }}
           transition={{ staggerChildren: 0.15 }}
         >
           {features.map((feature, i) => (

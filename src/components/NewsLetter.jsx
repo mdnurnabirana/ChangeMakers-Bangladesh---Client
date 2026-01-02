@@ -24,7 +24,7 @@ const NewsLetter = () => {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-text tracking-tight mb-4">
@@ -41,7 +41,7 @@ const NewsLetter = () => {
             className="flex flex-col sm:flex-row items-center justify-center gap-4 max-w-2xl mx-auto w-full"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: false, amount: 0.5 }}
+            viewport={{ once: true, amount: 0.5 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
           >
             <input
