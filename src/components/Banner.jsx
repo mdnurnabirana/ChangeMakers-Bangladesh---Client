@@ -1,6 +1,7 @@
-import slider1 from "../assets/slider1.jpg";
-import slider2 from "../assets/slider2.jpg";
-import slider3 from "../assets/slider3.jpg";
+import slider1 from "../assets/slider1.webp";
+import slider2 from "../assets/slider2.webp";
+import slider3 from "../assets/slider3.webp";
+import { Link } from "react-router";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
@@ -76,7 +77,7 @@ const Banner = () => {
                   </p>
 
                   <div className="mt-10">
-                    <button
+                    <Link to={"/upcoming-events"}
                       className="rounded-full bg-primary
                                  px-8 py-3.5 text-lg font-semibold text-white 
                                  shadow-lg transition-all duration-300 
@@ -85,7 +86,7 @@ const Banner = () => {
                                  active:scale-98"
                     >
                       Join Our Mission
-                    </button>
+                    </Link>
                   </div>
                 </motion.div>
               </div>

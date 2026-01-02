@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import authorImg from "../assets/author.jpg"
+import authorImg from "../assets/author.webp"
 const fadeUp = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6 } }
