@@ -46,19 +46,19 @@ const Topbar = ({ setIsSidebarOpen }) => {
             <p className="text-sm opacity-70 truncate mb-3">{user?.email}</p>
 
             <Link
-              to="/profile"
-              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-black/5"
-              onClick={() => setOpen(false)}
-            >
-              <FiUser /> Profile
-            </Link>
-
-            <Link
               to="/"
               className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-black/5"
               onClick={() => setOpen(false)}
             >
               <FiHome /> Home
+            </Link>
+            
+            <Link
+              to="/profile"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-black/5"
+              onClick={() => setOpen(false)}
+            >
+              <FiUser /> Profile
             </Link>
 
             <button

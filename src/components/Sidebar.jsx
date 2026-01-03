@@ -6,11 +6,11 @@ const navItems = [
   { name: "Dashboard", path: "/dashboard", icon: <FiHome />, end: true },
   {
     name: "Create Event",
-    path: "/dashboard/create-event",
+    path: "/create-event",
     icon: <FiCalendar />,
   },
-  { name: "Manage Events", path: "/dashboard/manage-event", icon: <FiEdit3 /> },
-  { name: "Joined Events", path: "/dashboard/joined-event", icon: <FiCheckCircle /> },
+  { name: "Manage Events", path: "/manage-event", icon: <FiEdit3 /> },
+  { name: "Joined Events", path: "/joined-event", icon: <FiCheckCircle /> },
 ];
 
 const Sidebar = ({ isOpen, setIsSidebarOpen }) => {

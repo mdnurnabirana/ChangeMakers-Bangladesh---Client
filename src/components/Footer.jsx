@@ -5,16 +5,16 @@ import logo from "../assets/logo.png";
 const Footer = () => {
   return (
     <div className="pt-20 bg-background">
-      <footer className="bg-white/20 text-text pt-16 pb-8 border-t border-primary/40">
+      <footer className="bg-primary/10 text-text pt-8 pb-8 border-t border-primary/20">
         <div className="max-w-7xl mx-auto px-5 grid grid-cols-1 md:grid-cols-3 gap-14">
           <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
             <Link to="/" className="flex justify-center gap-4 md:justify-start">
               <img
                 src={logo}
                 alt="ChangeMakers Logo"
-                className="h-18 w-auto drop-shadow-lg"
+                className="h-18 w-auto"
               />
-              <div className="flex flex-col justify-center items-center drop-shadow-lg">
+              <div className="flex flex-col justify-center items-center">
                 <h1 className="text-text text-2xl font-semibold">Change</h1>
                 <h1 className="text-primary text-2xl font-semibold">Makers</h1>
               </div>

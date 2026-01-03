@@ -34,7 +34,7 @@ const About = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-20">
           <motion.div
             variants={fadeUp}
-            initial="hidden"
+            initial="hidden" 
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
           >
@@ -119,7 +119,7 @@ const About = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.5 }}
-          className="bg-linear-to-br from-primary via-accent to-secondary rounded-2xl p-10 text-background shadow-xl mb-20"
+          className="bg-linear-to-br from-primary via-accent to-secondary rounded-2xl p-10 text-text shadow-xl mb-20"
         >
           <h2 className="text-3xl font-bold mb-4">Our Vision</h2>
           <p className="text-lg leading-relaxed opacity-90">

@@ -13,6 +13,7 @@ import PrivateRoute from "../privateRoute/PrivateRoute";
 import About from "../pages/About";
 import DashboardLayout from "../layouts/DashboardLayout";
 import DashboardHome from "../pages/Dashboard/DashboardHome";
+import Profile from "../pages/Profile";
 
 const router = createBrowserRouter([
   {
@@ -35,15 +36,27 @@ const router = createBrowserRouter([
         path: "/about",
         element: <About />,
       },
+      {
+        path: "/profile",
+        element: (
+          <PrivateRoute>
+            <Profile />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
-    path: "/dashboard",
+    path: "/",
     element: <DashboardLayout />,
     children: [
       {
-        index: true,
-        element: <PrivateRoute><DashboardHome/></PrivateRoute> ,
+        path: "dashboard",
+        element: (
+          <PrivateRoute>
+            <DashboardHome />
+          </PrivateRoute>
+        ),
       },
       {
         path: "create-event",
