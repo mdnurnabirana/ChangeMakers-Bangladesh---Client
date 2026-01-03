@@ -122,14 +122,6 @@ const Navbar = () => {
                       Dashboard
                     </Link>
 
-                    <Link
-                      to="/joined-event"
-                      onClick={() => setProfileClickOpen(false)}
-                      className="px-2 py-2 rounded hover:bg-primary/20 transition"
-                    >
-                      Joined Events
-                    </Link>
-
                     <button
                       onClick={handleLogout}
                       className="px-2 py-2 rounded flex items-center gap-2 font-semibold text-red-600 hover:bg-red-500/20"
@@ -158,7 +150,6 @@ const Navbar = () => {
             {theme === "light" ? <BsMoonStarsFill size={20} /> : <FiSun size={20} />}
           </button>
 
-          {/* Mobile Profile */}
           {!loading && user && (
             <div className="relative">
               <img
@@ -183,27 +174,12 @@ const Navbar = () => {
                     </div>
 
                     <Link
-                      to="/create-event"
+                      to="/dashboard"
                       onClick={() => setProfileClickOpen(false)}
                       className="px-2 py-2 rounded hover:bg-primary/20 transition"
                     >
-                      Create Event
+                      Dashboard
                     </Link>
-                    <Link
-                      to="/manage-event"
-                      onClick={() => setProfileClickOpen(false)}
-                      className="px-2 py-2 rounded hover:bg-primary/20 transition"
-                    >
-                      Manage Events
-                    </Link>
-                    <Link
-                      to="/joined-event"
-                      onClick={() => setProfileClickOpen(false)}
-                      className="px-2 py-2 rounded hover:bg-primary/20 transition"
-                    >
-                      Joined Events
-                    </Link>
-
                     <button
                       onClick={handleLogout}
                       className="px-2 py-2 rounded flex items-center gap-2 text-red-600 hover:bg-red-500/20"

@@ -77,7 +77,7 @@ const UpcomingEvent = () => {
             Upcoming Community Events
           </motion.h1>
 
-          <div className="flex justify-end my-6 w-full gap-4">
+          <div className="flex justify-end mt-6 w-full gap-4">
             <div className="flex items-center border border-accent rounded-lg px-3 py-2 bg-background shadow-sm focus-within:ring-2 focus-within:ring-primary flex-1 max-w-[400px]">
               <FaSearch className="text-text/80 mr-2" />
               <input
@@ -123,7 +123,7 @@ const UpcomingEvent = () => {
             </div>
           )}
 
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-12 pb-20">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8 mt-12">
             {events.map((event, index) => (
               <motion.div
                 key={event._id}

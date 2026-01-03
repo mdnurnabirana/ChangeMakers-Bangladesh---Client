@@ -4,12 +4,10 @@ import Topbar from "../components/Topbar";
 import Sidebar from "../components/Sidebar";
 
 const DashboardLayout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   return (
-    <div
-      className="flex min-h-screen bg-background text-text"
-    >
+    <div className="flex min-h-screen bg-background text-text">
       <Sidebar isOpen={isSidebarOpen} setIsSidebarOpen={setIsSidebarOpen} />
 
       <div
