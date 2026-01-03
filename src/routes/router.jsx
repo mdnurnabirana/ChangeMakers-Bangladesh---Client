@@ -32,14 +32,6 @@ const router = createBrowserRouter([
         element: <EventDetail />,
       },
       {
-        path: "/joined-event",
-        element: (
-          <PrivateRoute>
-            <JoinedEvent />
-          </PrivateRoute>
-        ),
-      },
-      {
         path: "/about",
         element: <About />,
       },
@@ -66,6 +58,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <ManageEvent />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "joined-event",
+        element: (
+          <PrivateRoute>
+            <JoinedEvent />
           </PrivateRoute>
         ),
       },

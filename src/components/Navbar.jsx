@@ -123,22 +123,6 @@ const Navbar = () => {
                     </Link>
 
                     <Link
-                      to="/create-event"
-                      onClick={() => setProfileClickOpen(false)}
-                      className="px-2 py-2 rounded hover:bg-primary/20 transition"
-                    >
-                      Create Event
-                    </Link>
-
-                    <Link
-                      to="/manage-event"
-                      onClick={() => setProfileClickOpen(false)}
-                      className="px-2 py-2 rounded hover:bg-primary/20 transition"
-                    >
-                      Manage Events
-                    </Link>
-
-                    <Link
                       to="/joined-event"
                       onClick={() => setProfileClickOpen(false)}
                       className="px-2 py-2 rounded hover:bg-primary/20 transition"

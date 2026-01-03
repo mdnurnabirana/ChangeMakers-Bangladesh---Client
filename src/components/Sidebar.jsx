@@ -5,7 +5,8 @@ import logo from "./../assets/logo.png";
 const navItems = [
   { name: "Dashboard", path: "/dashboard", icon: <FiHome />, end: true },
   { name: "Create Event", path: "/dashboard/create-event", icon: <FiCalendar /> },
-  { name: "Members", path: "/dashboard/members", icon: <FiUsers /> },
+  { name: "Manage Events", path: "/dashboard/manage-event", icon: <FiUsers /> },
+  { name: "Joined Events", path: "/dashboard/joined-event", icon: <FiUsers /> },
 ];
 
 const Sidebar = ({ isOpen }) => {
