@@ -42,9 +42,9 @@ const Login = () => {
 
   const fillDemo = (demo) => {
     if (demo === 1) {
-      setEmail("userone@gmail.com");
+      setEmail("fifaxertz@gmail.com");
     } else {
-      setEmail("usertwo@gmail.com");
+      setEmail("userone@gmail.com");
     }
     setPassword("1234Aa");
   };
@@ -66,7 +66,7 @@ const Login = () => {
             className="bg-secondary p-8 rounded-2xl shadow-lg flex flex-col gap-6 border-2 border-primary"
           >
 
-            <div className="flex gap-3">
+            <div className="flex gap-3 text-text">
               <button
                 type="button"
                 onClick={() => fillDemo(1)}
@@ -84,7 +84,7 @@ const Login = () => {
             </div>
 
             <input
-              className="outline-none border-b-2 border-primary bg-transparent p-2"
+              className="text-text outline-none border-b-2 border-primary bg-transparent p-2"
               type="email"
               placeholder="Your Email"
               value={email}
@@ -94,7 +94,7 @@ const Login = () => {
 
             <div className="relative">
               <input
-                className="outline-none border-b-2 border-primary bg-transparent p-2 w-full"
+                className="text-text outline-none border-b-2 border-primary bg-transparent p-2 w-full"
                 type={showPassword ? "text" : "password"}
                 placeholder="Your Password"
                 value={password}
@@ -124,7 +124,7 @@ const Login = () => {
             <button
               type="button"
               onClick={handleGoogleSignin}
-              className="bg-background flex justify-center items-center gap-2 border border-primary rounded-xl py-2 hover:bg-background/70 transition"
+              className="text-text bg-background flex justify-center items-center gap-2 border border-primary rounded-xl py-2 hover:bg-background/70 transition"
             >
               <img
                 src="https://www.svgrepo.com/show/475656/google-color.svg"
