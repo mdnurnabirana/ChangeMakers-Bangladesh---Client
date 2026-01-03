@@ -29,12 +29,21 @@ const AuthProvider = ({ children }) => {
 
   const signInUser = (email, password) => {
     setLoading(true);
-    return signInWithEmailAndPassword(auth, email, password);
+    try {
+      return signInWithEmailAndPassword(auth, email, password);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const logOut = () => {
     setLoading(true);
-    return signOut(auth);
+    try {
+      return signOut(auth);
+    } catch (error) {
+      setLoading(false);
+      throw error;
+    }
   };
 
   const updateUserProfile = async ({
@@ -73,7 +82,11 @@ const AuthProvider = ({ children }) => {
 
   const signInWithGoogle = () => {
     setLoading(true);
-    return signInWithPopup(auth, googleProvider);
+    try {
+      return signInWithPopup(auth, googleProvider);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => {
