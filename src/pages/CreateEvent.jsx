@@ -88,163 +88,149 @@ const CreateEvent = () => {
   return (
     <>
       <title>Create Event</title>
-      <section className="bg-background min-h-screen p-5 flex justify-center">
+      <motion.h1
+        className="text-3xl font-semibold text-text mb-2"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.5 }}
+      >
+        Create Event
+      </motion.h1>
+      <motion.p
+        className="text-primary mb-6 font-semibold"
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.5, delay: 0.1 }}
+      >
+        Let's make the world better together!
+      </motion.p>
+
+      <motion.form
+        onSubmit={handleSubmit}
+        className="space-y-5"
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ staggerChildren: 0.1, duration: 0.5 }}
+      >
+        {[
+          {
+            label: "Event Title",
+            type: "text",
+            name: "title",
+            placeholder: "Roadside Tree Plantation",
+          },
+          {
+            label: "Description",
+            type: "textarea",
+            name: "description",
+            placeholder: "Write details about the event...",
+          },
+          {
+            label: "Thumbnail URL",
+            type: "text",
+            name: "thumbnail",
+            placeholder: "https://example.com/image.jpg",
+          },
+          {
+            label: "Location",
+            type: "text",
+            name: "location",
+            placeholder: "Dhaka, Bangladesh",
+          },
+        ].map((field, idx) => (
+          <motion.div
+            key={idx}
+            className="flex flex-col"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 0.5, delay: idx * 0.05 }}
+          >
+            <label className="text-text font-medium mb-1">{field.label}</label>
+            {field.type === "textarea" ? (
+              <textarea
+                name={field.name}
+                placeholder={field.placeholder}
+                value={formData[field.name]}
+                onChange={handleChange}
+                className="w-full p-3 bg-background text-text border border-primary rounded-lg outline-primary placeholder:text-text/50 h-28 transition resize-none"
+              />
+            ) : (
+              <input
+                type={field.type}
+                name={field.name}
+                placeholder={field.placeholder}
+                value={formData[field.name]}
+                onChange={handleChange}
+                className="w-full p-3 bg-background border border-primary text-text rounded-lg outline-primary placeholder:text-text/50 transition"
+              />
+            )}
+            {errors[field.name] && (
+              <p className="text-red-500 text-sm">{errors[field.name]}</p>
+            )}
+          </motion.div>
+        ))}
+
         <motion.div
-          className="max-w-[660px] w-full mt-20 bg-primary/10 p-8 rounded-2xl drop-shadow-lg shadow-lg"
+          className="flex flex-col"
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
+          transition={{ duration: 0.5, delay: 0.2 }}
         >
-          <motion.h1
-            className="text-3xl font-semibold text-text mb-2"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5 }}
+          <label className="text-text font-medium mb-1">Event Type</label>
+          <select
+            name="type"
+            value={formData.type}
+            onChange={handleChange}
+            className="text-text/50 w-full p-3 pl-4 pr-10 bg-background border border-primary/40 rounded-xl appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary transition"
           >
-            Create Event
-          </motion.h1>
-          <motion.p
-            className="text-primary mb-6 font-semibold"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            Let's make the world better together!
-          </motion.p>
-
-          <motion.form
-            onSubmit={handleSubmit}
-            className="space-y-5"
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ staggerChildren: 0.1, duration: 0.5 }}
-          >
-            {[
-              {
-                label: "Event Title",
-                type: "text",
-                name: "title",
-                placeholder: "Roadside Tree Plantation",
-              },
-              {
-                label: "Description",
-                type: "textarea",
-                name: "description",
-                placeholder: "Write details about the event...",
-              },
-              {
-                label: "Thumbnail URL",
-                type: "text",
-                name: "thumbnail",
-                placeholder: "https://example.com/image.jpg",
-              },
-              {
-                label: "Location",
-                type: "text",
-                name: "location",
-                placeholder: "Dhaka, Bangladesh",
-              },
-            ].map((field, idx) => (
-              <motion.div
-                key={idx}
-                className="flex flex-col"
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
-                transition={{ duration: 0.5, delay: idx * 0.05 }}
-              >
-                <label className="text-text font-medium mb-1">
-                  {field.label}
-                </label>
-                {field.type === "textarea" ? (
-                  <textarea
-                    name={field.name}
-                    placeholder={field.placeholder}
-                    value={formData[field.name]}
-                    onChange={handleChange}
-                    className="w-full p-3 bg-background text-text border border-primary rounded-lg outline-primary placeholder:text-text/50 h-28 transition resize-none"
-                  />
-                ) : (
-                  <input
-                    type={field.type}
-                    name={field.name}
-                    placeholder={field.placeholder}
-                    value={formData[field.name]}
-                    onChange={handleChange}
-                    className="w-full p-3 bg-background border border-primary text-text rounded-lg outline-primary placeholder:text-text/50 transition"
-                  />
-                )}
-                {errors[field.name] && (
-                  <p className="text-red-500 text-sm">{errors[field.name]}</p>
-                )}
-              </motion.div>
+            <option value="">Select event type</option>
+            {eventTypes.map((type) => (
+              <option key={type} value={type}>
+                {type}
+              </option>
             ))}
-
-            <motion.div
-              className="flex flex-col"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
-            >
-              <label className="text-text font-medium mb-1">Event Type</label>
-              <select
-                name="type"
-                value={formData.type}
-                onChange={handleChange}
-                className="text-text/50 w-full p-3 pl-4 pr-10 bg-background border border-primary/40 rounded-xl appearance-none cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary transition"
-              >
-                <option value="">Select event type</option>
-                {eventTypes.map((type) => (
-                  <option key={type} value={type}>
-                    {type}
-                  </option>
-                ))}
-              </select>
-              {errors.type && (
-                <p className="text-red-500 text-sm">{errors.type}</p>
-              )}
-            </motion.div>
-
-            <motion.div
-              className="flex flex-col"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, delay: 0.25 }}
-            >
-              <label className="text-text font-medium mb-1">Event Date</label>
-              <DatePicker
-                selected={eventDate}
-                onChange={setEventDate}
-                minDate={new Date()}
-                placeholderText="Select event date"
-                className="w-full p-3 bg-background border text-text border-primary rounded-lg outline-primary placeholder:text-text/50 transition cursor-pointer"
-                dateFormat="MMMM d, yyyy"
-              />
-              {errors.eventDate && (
-                <p className="text-red-500 text-sm">{errors.eventDate}</p>
-              )}
-            </motion.div>
-
-            <motion.button
-              type="submit"
-              disabled={loading}
-              className="w-full p-3 bg-primary text-text font-semibold rounded-lg hover:bg-primary/80 transition"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
-            >
-              Create Event
-            </motion.button>
-          </motion.form>
+          </select>
+          {errors.type && <p className="text-red-500 text-sm">{errors.type}</p>}
         </motion.div>
-      </section>
+
+        <motion.div
+          className="flex flex-col"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.25 }}
+        >
+          <label className="text-text font-medium mb-1">Event Date</label>
+          <DatePicker
+            selected={eventDate}
+            onChange={setEventDate}
+            minDate={new Date()}
+            placeholderText="Select event date"
+            className="w-full p-3 bg-background border text-text border-primary rounded-lg outline-primary placeholder:text-text/50 transition cursor-pointer"
+            dateFormat="MMMM d, yyyy"
+          />
+          {errors.eventDate && (
+            <p className="text-red-500 text-sm">{errors.eventDate}</p>
+          )}
+        </motion.div>
+
+        <motion.button
+          type="submit"
+          disabled={loading}
+          className="w-full p-3 bg-primary text-text font-semibold rounded-lg hover:bg-primary/80 transition"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+        >
+          Create Event
+        </motion.button>
+      </motion.form>
     </>
   );
 };

@@ -15,7 +15,7 @@ const Topbar = ({ setIsSidebarOpen }) => {
   };
 
   return (
-    <header className="h-16 bg-secondary/50 flex items-center justify-between px-4 sm:px-6 sticky top-0 z-999">
+    <header className="h-16 bg-secondary flex items-center justify-between px-4 sm:px-6 sticky top-0 z-33">
       <button onClick={() => setIsSidebarOpen((p) => !p)} className="text-xl">
         <FaBars />
       </button>
@@ -29,7 +29,7 @@ const Topbar = ({ setIsSidebarOpen }) => {
         >
           <img
             referrerPolicy="no-referrer"
-            src={user.photoURL || avatarFallback}
+            src={user?.photoURL || avatarFallback}
             onError={(e) => (e.currentTarget.src = avatarFallback)}
             className="w-8 h-8 rounded-full object-cover"
             alt="User"

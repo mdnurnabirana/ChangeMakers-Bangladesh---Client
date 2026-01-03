@@ -32,26 +32,10 @@ const router = createBrowserRouter([
         element: <EventDetail />,
       },
       {
-        path: "/create-event",
-        element: (
-          <PrivateRoute>
-            <CreateEvent />
-          </PrivateRoute>
-        ),
-      },
-      {
         path: "/joined-event",
         element: (
           <PrivateRoute>
             <JoinedEvent />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/manage-event",
-        element: (
-          <PrivateRoute>
-            <ManageEvent />
           </PrivateRoute>
         ),
       },
@@ -67,7 +51,23 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <PrivateRoute><DashboardHome /></PrivateRoute> ,
+        element: <PrivateRoute><DashboardHome/></PrivateRoute> ,
+      },
+      {
+        path: "create-event",
+        element: (
+          <PrivateRoute>
+            <CreateEvent />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "manage-event",
+        element: (
+          <PrivateRoute>
+            <ManageEvent />
+          </PrivateRoute>
+        ),
       },
     ],
   },
