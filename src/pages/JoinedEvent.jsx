@@ -4,6 +4,7 @@ import Loading from "../components/Loading";
 import toast from "react-hot-toast";
 import { FaCalendarAlt } from "react-icons/fa";
 import { motion } from "motion/react";
+import { Link } from "react-router";
 
 const JoinedEvent = () => {
   const { user } = useContext(AuthContext);
@@ -92,7 +93,7 @@ const JoinedEvent = () => {
           {events.map((event, index) => (
             <motion.div
               key={event._id}
-              initial={{ opacity: 0, y: 40, scale: 0.95 }}
+              initial={{ opacity: 0, y: 30, scale: 0.95 }}
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{
@@ -101,26 +102,39 @@ const JoinedEvent = () => {
                 ease: "easeOut",
               }}
               whileHover={{ scale: 1.02 }}
-              className="bg-secondary/10 rounded-2xl p-4 shadow hover:shadow-lg transition"
+              className="rounded-2xl bg-secondary/10 border border-accent/20 shadow-xl hover:shadow-2xl hover:shadow-accent/30 overflow-hidden transition-all duration-300 flex flex-col"
             >
               <img
                 src={event.thumbnail}
                 alt={event.title}
-                className="w-full h-48 object-cover rounded-xl mb-4"
+                className="h-48 w-full object-cover"
               />
-              <h2 className="text-xl font-bold text-primary mb-2">
-                {event.title}
-              </h2>
-              <p className="text-text/70 mb-1">
-                <strong>Location:</strong> {event.location}
-              </p>
-              <p className="text-text/70 mb-1">
-                <strong>Type:</strong> {event.type}
-              </p>
-              <p className="text-text/70">
-                <strong>Date:</strong>{" "}
-                {new Date(event.eventDate).toLocaleDateString()}
-              </p>
+
+              <div className="p-5 flex flex-col grow">
+                <h2 className="text-xl font-bold text-text line-clamp-2 min-h-14">
+                  {event.title}
+                </h2>
+
+                <div className="flex justify-between items-center mt-3">
+                  <p className="text-sm text-text/60">{event.location}</p>
+                  <span className="bg-primary/15 px-3 py-1 text-primary text-xs font-semibold rounded-full">
+                    {event.type}
+                  </span>
+                </div>
+
+                <p className="mt-2 text-sm font-medium text-primary">
+                  {new Date(event.eventDate).toLocaleDateString()}
+                </p>
+
+                <div className="mt-auto pt-5">
+                  <Link
+                    to={`/upcoming-events/${event._id}`}
+                    className="w-full block text-center bg-primary text-background font-semibold py-2 rounded-lg hover:bg-primary/80 transition"
+                  >
+                    View Event Detail
+                  </Link>
+                </div>
+              </div>
             </motion.div>
           ))}
         </div>
