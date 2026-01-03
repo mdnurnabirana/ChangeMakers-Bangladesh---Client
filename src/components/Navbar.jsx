@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router";
 import { FiSun, FiMenu, FiX, FiLogOut } from "react-icons/fi";
 import { BsMoonStarsFill } from "react-icons/bs";
@@ -8,6 +8,7 @@ import avatarFallback from "../assets/avatar.png";
 import logo from "../assets/logo.png";
 import Loading from "./Loading";
 import { AuthContext } from "../provider/AuthProvider";
+import { useTheme } from "../provider/ThemeProvider";
 
 const links = [
   { id: 1, name: "Home", link: "/" },
@@ -16,18 +17,12 @@ const links = [
 ];
 
 const Navbar = () => {
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [profileClickOpen, setProfileClickOpen] = useState(false);
 
   const { user, logOut, loading } = useContext(AuthContext);
 
-  useEffect(() => {
-    document.documentElement.setAttribute("data-theme", theme);
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  const toggleTheme = () => setTheme(theme === "light" ? "dark" : "light");
+  const { theme, toggleTheme } = useTheme();
   const toggleMobileMenu = () => setMobileMenuOpen(!mobileMenuOpen);
 
   // LOGOUT
@@ -45,7 +40,6 @@ const Navbar = () => {
     <header className="bg-background drop-shadow-lg drop-shadow-accent/40 z-9999 relative">
       <div className="max-w-[1296px] mx-auto flex justify-between items-center p-3">
 
-        {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
           <img src={logo} alt="Logo" className="h-14" />
           <div className="flex flex-col text-xl font-bold">
@@ -78,14 +72,12 @@ const Navbar = () => {
             {theme === "light" ? <BsMoonStarsFill size={20} /> : <FiSun size={20} />}
           </button>
 
-          {/* Profile */}
           {loading ? (
             <div className="w-10 h-10">
               <Loading size={40} />
             </div>
           ) : user ? (
             <div className="relative group">
-              {/* Avatar */}
               <img
                 src={user.photoURL || avatarFallback}
                 referrerPolicy="no-referrer"
@@ -121,6 +113,14 @@ const Navbar = () => {
                       <p className="font-semibold">{user.displayName}</p>
                       <p className="text-xs opacity-80">{user.email}</p>
                     </div>
+
+                    <Link
+                      to="/dashboard"
+                      onClick={() => setProfileClickOpen(false)}
+                      className="px-2 py-2 rounded hover:bg-primary/20 transition"
+                    >
+                      Dashboard
+                    </Link>
 
                     <Link
                       to="/create-event"

@@ -11,6 +11,8 @@ import EventDetail from "../pages/EventDetail";
 import Home from "../pages/Home";
 import PrivateRoute from "../privateRoute/PrivateRoute";
 import About from "../pages/About";
+import DashboardLayout from "../layouts/DashboardLayout";
+import DashboardHome from "../pages/Dashboard/DashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -55,8 +57,18 @@ const router = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <About />
-      }
+        element: <About />,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardLayout />,
+    children: [
+      {
+        index: true,
+        element: <PrivateRoute><DashboardHome /></PrivateRoute> ,
+      },
     ],
   },
 ]);
