@@ -37,7 +37,7 @@ const Footer = () => {
               Home
             </Link>
             <Link
-              to="/events"
+              to="/upcoming-events"
               className="hover:text-accent transition-colors duration-200"
             >
               All Events
