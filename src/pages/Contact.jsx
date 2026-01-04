@@ -76,6 +76,7 @@ const Contact = () => {
 
   return (
     <section className="bg-background text-text pt-10 sm:pt-15">
+      <title>Contact with Us</title>
       <div className="max-w-3xl mx-auto px-4">
         <motion.h1
           className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary text-center mb-10"

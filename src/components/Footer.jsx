@@ -48,6 +48,19 @@ const Footer = () => {
             >
               About 
             </Link>
+            <Link
+              to="/contact"
+              className="hover:text-accent transition-colors duration-200"
+            >
+              Contact us 
+            </Link>
+            <Link
+              to="/terms"
+              className="hover:text-accent transition-colors duration-200"
+            >
+              Terms & Conditions 
+            </Link>
+
           </div>
 
           <div className="flex flex-col items-center space-y-4">

@@ -86,7 +86,6 @@ const DashboardHome = () => {
         });
         setBarData(bar);
 
-        // Pie chart data: event types
         const pie = Object.entries(typeCount).map(([type, value]) => ({
           name: type,
           value,
@@ -138,45 +137,57 @@ const DashboardHome = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="rounded-xl bg-secondary/80 p-5 shadow-sm">
+        <div className="rounded-xl bg-secondary/80 p-5 shadow-sm flex flex-col">
           <h3 className="font-semibold mb-2">Events Per Month</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <BarChart data={barData}>
-              <XAxis dataKey="month" />
-              <YAxis />
-              <Tooltip />
-              <Legend />
-              <Bar dataKey="Created" fill="#0088FE" />
-              <Bar dataKey="Joined" fill="#00C49F" />
-            </BarChart>
-          </ResponsiveContainer>
+          {barData.every((d) => d.Created === 0 && d.Joined === 0) ? (
+            <div className="flex-1 flex items-center justify-center text-gray-400 italic">
+              No events found for this chart.
+            </div>
+          ) : (
+            <ResponsiveContainer width="100%" height={300}>
+              <BarChart data={barData}>
+                <XAxis dataKey="month" />
+                <YAxis />
+                <Tooltip />
+                <Legend />
+                <Bar dataKey="Created" fill="#0088FE" />
+                <Bar dataKey="Joined" fill="#00C49F" />
+              </BarChart>
+            </ResponsiveContainer>
+          )}
         </div>
 
-        <div className="rounded-xl bg-secondary/80 p-5 shadow-sm">
+        <div className="rounded-xl bg-secondary/80 p-5 shadow-sm flex flex-col">
           <h3 className="font-semibold mb-2">Event Types Distribution</h3>
-          <ResponsiveContainer width="100%" height={300}>
-            <PieChart>
-              <Pie
-                data={pieData}
-                dataKey="value"
-                nameKey="name"
-                cx="50%"
-                cy="50%"
-                outerRadius={100}
-                fill="#8884d8"
-                label
-              >
-                {pieData.map((entry, index) => (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={COLORS[index % COLORS.length]}
-                  />
-                ))}
-              </Pie>
-              <Legend />
-              <Tooltip />
-            </PieChart>
-          </ResponsiveContainer>
+          {pieData.length === 0 ? (
+            <div className="flex-1 flex items-center justify-center text-gray-400 italic">
+              No event types found.
+            </div>
+          ) : (
+            <ResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={pieData}
+                  dataKey="value"
+                  nameKey="name"
+                  cx="50%"
+                  cy="50%"
+                  outerRadius={100}
+                  fill="#8884d8"
+                  label
+                >
+                  {pieData.map((entry, index) => (
+                    <Cell
+                      key={`cell-${index}`}
+                      fill={COLORS[index % COLORS.length]}
+                    />
+                  ))}
+                </Pie>
+                <Legend />
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+          )}
         </div>
       </div>
     </div>
