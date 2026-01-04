@@ -39,7 +39,7 @@ const FAQ = () => {
 
   return (
     <section className="bg-background text-text pt-20">
-      <div className="max-w-4xl mx-auto px-5">
+      <div className="max-w-7xl mx-auto px-5">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -47,7 +47,7 @@ const FAQ = () => {
           transition={{ duration: 0.6 }}
           className="text-center mb-12"
         >
-          <h2 className="text-3xl sm:text-5xl lg:text-6xl font-bold text-primary tracking-tight">
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-primary tracking-tight">
             Frequently Asked Questions
           </h2>
           <p className="mt-4 text-md lg:text-lg text-text/80 max-w-2xl mx-auto">

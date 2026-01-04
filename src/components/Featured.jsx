@@ -27,8 +27,8 @@ const Featured = () => {
   ];
 
   return (
-    <section className="w-full pt-10 sm:pt-20 px-4 bg-background text-text">
-      <div className="max-w-6xl mx-auto text-center">
+    <section className="w-full pt-10 sm:pt-20 px-4 sm:px-0 bg-background text-text">
+      <div className="max-w-7xl mx-auto text-center">
         <motion.div
           initial="hidden"
           whileInView="visible"
@@ -68,7 +68,7 @@ const Featured = () => {
               }}
               transition={{ duration: 0.6, type: "spring", stiffness: 70 }}
               whileHover={{ scale: 1.04 }}
-              className="p-8 rounded-2xl shadow-lg bg-white/15 backdrop-blur border border-white/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
+              className="p-8 rounded-2xl shadow-lg bg-white/5 backdrop-blur border border-white/50 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300"
             >
               <div className="text-primary mb-4 flex justify-center">
                 {feature.icon}
