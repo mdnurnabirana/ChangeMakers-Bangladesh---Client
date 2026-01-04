@@ -14,6 +14,7 @@ import About from "../pages/About";
 import DashboardLayout from "../layouts/DashboardLayout";
 import DashboardHome from "../pages/Dashboard/DashboardHome";
 import Profile from "../pages/Profile";
+import Contact from "../pages/Contact";
 
 const router = createBrowserRouter([
   {
@@ -44,6 +45,10 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "/contact",
+        element: <Contact />
+      }
     ],
   },
   {
