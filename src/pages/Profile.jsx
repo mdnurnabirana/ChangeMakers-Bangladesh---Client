@@ -39,7 +39,7 @@ const Profile = () => {
 
   return (
     <section className="bg-background pt-20">
-      <div className="max-w-2xl mx-4 sm:mx-auto py-8 px-6 bg-secondary/10 rounded-xl shadow-md ">
+      <div className="max-w-2xl mx-4 sm:mx-auto py-8 px-6 bg-secondary/40 rounded-xl shadow-md ">
         <h1 className="text-text text-2xl font-bold mb-4">My Profile</h1>
         <div className="flex items-center gap-4 mb-6">
           <img
@@ -85,7 +85,7 @@ const Profile = () => {
           <button
             type="submit"
             disabled={loading}
-            className="mt-2 w-full px-4 py-2 bg-accent/80 text-text rounded-lg hover:bg-primary-dark disabled:opacity-50"
+            className="mt-2 w-full px-4 py-2 bg-accent/80 text-text rounded-lg hover:bg-primary-dark disabled:opacity-50 font-medium"
           >
             {loading ? <Loading size={22} /> : "Update Profile"}
           </button>
