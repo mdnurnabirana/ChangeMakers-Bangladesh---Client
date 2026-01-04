@@ -53,7 +53,6 @@ const Gallery = () => {
               whileInView={{ opacity: 1, y: 0, scale: 1 }}
               viewport={{ once: true, amount: 0.3 }}
               transition={{ duration: 0.7, delay: index * 0.08, type: "spring", stiffness: 70 }}
-              whileHover={{ scale: 1.03 }}
               className={`
                 relative overflow-hidden rounded-2xl shadow-xl group cursor-pointer
                 transition-all duration-500 hover:shadow-2xl hover:-translate-y-1
@@ -63,7 +62,7 @@ const Gallery = () => {
               <img
                 src={photo.src}
                 alt={`Event moment ${index + 1}`}
-                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                 loading="lazy"
               />
 

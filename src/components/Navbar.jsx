@@ -37,7 +37,7 @@ const Navbar = () => {
   const activeClass = "text-secondary font-semibold";
 
   return (
-    <header className="bg-background">
+    <header className="sticky top-0 z-9999 bg-background">
       <div className="bg-primary/10 z-9999 relative">
         <div className="max-w-7xl mx-auto flex justify-between items-center p-3">
           <Link to="/" className="flex items-center gap-2">
