@@ -3,6 +3,7 @@ import Banner from '../components/Banner';
 import Gallery from '../components/Gallery';
 import Featured from '../components/Featured';
 import NewsLetter from '../components/NewsLetter';
+import FAQ from './FAQ';
 
 const Home = () => {
     return (
@@ -10,6 +11,7 @@ const Home = () => {
             <Banner />
             <Featured />
             <Gallery />
+            <FAQ />
             <NewsLetter />
         </>
     );
